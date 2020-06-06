@@ -16,7 +16,7 @@ class AuthController extends ResponseController
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:20', 'min:2'],
+            'name' => ['string', 'max:20', 'min:2'],
             'last_name' => ['string', 'max:20', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:40', 'unique:users'],
             'password' => ['required'],
