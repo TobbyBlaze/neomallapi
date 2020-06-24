@@ -6,7 +6,7 @@ use Laravel\Passport\HasApiTokens;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\Admin as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
@@ -17,6 +17,9 @@ class Admin extends Authenticatable
      *
      * @var array
      */
+
+    protected $guard = 'admin';
+
     protected $fillable = [
         'name', 'last_name', 'email', 'password',
     ];

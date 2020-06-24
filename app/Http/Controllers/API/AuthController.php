@@ -168,7 +168,7 @@ class AuthController extends ResponseController
         $input['business_reg_doc'] = json_encode($business_reg_doc_data);
         $input['vat_info_doc'] = json_encode($vat_info_doc_data);
         $seller = Seller::create($input);
-        if($user){
+        if($seller){
             $success['token'] =  $seller->createToken('token')->accessToken;
             $success['message'] = "Registration successfull..";
             return $this->sendResponse($success);
