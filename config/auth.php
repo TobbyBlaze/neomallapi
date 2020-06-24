@@ -36,6 +36,8 @@ return [
     */
 
     'guards' => [
+
+        //user
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -44,6 +46,32 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
+            'hash' => false,
+        ],
+
+        //seller
+
+        'seller' => [
+            'driver' => 'session',
+            'provider' => 'sellers',
+        ],
+
+        'seller-api' => [
+            'driver' => 'passport',
+            'provider' => 'sellers',
+            'hash' => false,
+        ],
+
+        //admin
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin-api' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
             'hash' => false,
         ],
     ],
@@ -71,6 +99,16 @@ return [
             'model' => App\User::class,
         ],
 
+        'sellers' => [
+            'driver' => 'eloquent',
+            'model' => App\Seller::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -95,6 +133,11 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            // 'expire' => 60,
+        ],
+        'sellers' => [
+            'provider' => 'sellers',
             'table' => 'password_resets',
             // 'expire' => 60,
         ],
