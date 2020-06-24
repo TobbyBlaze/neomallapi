@@ -109,11 +109,11 @@ class AuthController extends ResponseController
          ];
         $this->validate($request, [
             'store_pics.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
-            'store_pics' => 'max:2',
+            // 'store_pics' => 'max:2',
             'business_reg_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-            'business_reg_doc' => 'max:2',
+            // 'business_reg_doc' => 'max:2',
             'vat_info_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-            'vat_info_doc' => 'max:2',
+            // 'vat_info_doc' => 'max:2',
         ],$messages);
 
         $validator = Validator::make($request->all(), [
