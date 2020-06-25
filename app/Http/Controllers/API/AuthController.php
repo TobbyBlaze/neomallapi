@@ -129,6 +129,7 @@ class AuthController extends ResponseController
         }
 
         // if($request->hasFile('store_pics')){
+            dd($request->file);
             foreach ($request->file('store_pics') as $sin_store_pics){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sin_store_pics->getClientOriginalName();
