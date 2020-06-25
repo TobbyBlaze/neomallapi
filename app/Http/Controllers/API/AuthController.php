@@ -128,7 +128,7 @@ class AuthController extends ResponseController
             return $this->sendError($validator->errors());       
         }
 
-        if($request->hasFile('store_pics')){
+        // if($request->hasFile('store_pics')){
             foreach ($request->file('store_pics') as $sin_store_pics){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sin_store_pics->getClientOriginalName();
@@ -138,7 +138,7 @@ class AuthController extends ResponseController
                 
                 $extension = $sin_store_pics->getClientOriginalExtension();
             }
-        }
+        // }
         if($request->hasFile('business_reg_doc')){
             foreach ($request->file('business_reg_doc') as $sin_business_reg_doc){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
