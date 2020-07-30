@@ -165,9 +165,9 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $input['store_pics'] = json_encode($store_pics_data);
-        $input['business_reg_doc'] = json_encode($business_reg_doc_data);
-        $input['vat_info_doc'] = json_encode($vat_info_doc_data);
+        // $input['store_pics'] = json_encode($store_pics_data);
+        // $input['business_reg_doc'] = json_encode($business_reg_doc_data);
+        // $input['vat_info_doc'] = json_encode($vat_info_doc_data);
         $seller = Seller::create($input);
         if($seller){
             $success['token'] =  $seller->createToken('token')->accessToken;
