@@ -107,14 +107,14 @@ class AuthController extends ResponseController
         $messages = [
             "attachments.max" => "file can't be more than 3."
          ];
-        $this->validate($request, [
-            'store_pics.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
-            // 'store_pics' => 'max:2',
-            'business_reg_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-            // 'business_reg_doc' => 'max:2',
-            'vat_info_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-            // 'vat_info_doc' => 'max:2',
-        ],$messages);
+        // $this->validate($request, [
+        //     'store_pics.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
+        //     // 'store_pics' => 'max:2',
+        //     'business_reg_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
+        //     // 'business_reg_doc' => 'max:2',
+        //     'vat_info_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
+        //     // 'vat_info_doc' => 'max:2',
+        // ],$messages);
 
         $validator = Validator::make($request->all(), [
             // 'name' => ['string', 'max:20', 'min:2'],
@@ -129,7 +129,7 @@ class AuthController extends ResponseController
         }
 
         // if($request->hasFile('store_pics')){
-            dd($request->file);
+            // dd($request->file);
             foreach ($request->file('store_pics') as $sin_store_pics){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sin_store_pics->getClientOriginalName();
