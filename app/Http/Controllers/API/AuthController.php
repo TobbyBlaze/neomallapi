@@ -119,7 +119,7 @@ class AuthController extends ResponseController
         $validator = Validator::make($request->all(), [
             // 'name' => ['string', 'max:20', 'min:2'],
             // 'last_name' => ['string', 'max:20', 'min:2'],
-            'email' => ['required', 'string', 'email', 'max:40', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:40', 'unique:sellers'],
             'password' => ['required'],
             'confirm_password' => ['required', 'same:password'],
         ]);
