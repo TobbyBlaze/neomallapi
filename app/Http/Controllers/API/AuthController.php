@@ -104,9 +104,9 @@ class AuthController extends ResponseController
     public function seller_signup(Request $request)
     {
 
-        $messages = [
-            "attachments.max" => "file can't be more than 3."
-         ];
+        // $messages = [
+        //     "attachments.max" => "file can't be more than 3."
+        //  ];
         // $this->validate($request, [
         //     'store_pics.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
         //     // 'store_pics' => 'max:2',
@@ -116,17 +116,17 @@ class AuthController extends ResponseController
         //     // 'vat_info_doc' => 'max:2',
         // ],$messages);
 
-        $validator = Validator::make($request->all(), [
-            // 'name' => ['string', 'max:20', 'min:2'],
-            // 'last_name' => ['string', 'max:20', 'min:2'],
-            'email' => ['required', 'string', 'email', 'max:40', 'unique:sellers'],
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     // 'name' => ['string', 'max:20', 'min:2'],
+        //     // 'last_name' => ['string', 'max:20', 'min:2'],
+        //     'email' => ['required', 'string', 'email', 'max:40', 'unique:sellers'],
+        //     'password' => ['required'],
+        //     'confirm_password' => ['required', 'same:password'],
+        // ]);
 
-        if($validator->fails()){
-            return $this->sendError($validator->errors());       
-        }
+        // if($validator->fails()){
+        //     return $this->sendError($validator->errors());       
+        // }
 
         if($request->hasFile('store_pics')){
             // dd($request->file);
