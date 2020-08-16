@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use App\Seller;
 use App\Good;
 use App\Cart;
 use App\Review;
@@ -35,7 +36,7 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('seller-signup', 'API\AuthController@seller_signup');
         
     });
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => ['auth.seller', 'auth:api']], function() {
         Route::get('logout', 'API\AuthController@logout');
         Route::get('getuser', 'API\AuthController@getUser');
 
