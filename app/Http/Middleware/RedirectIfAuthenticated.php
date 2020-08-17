@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -17,10 +18,26 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
-        }
+        // if (Auth::guard($guard)->check()) {
+        //     return redirect('/home');
+        // }
 
-        return $next($request);
+        // return $next($request);
+
+        //newly created
+
+        switch ($guard) {
+            case 'seller':
+              if (Auth::guard($guard)->check()) {
+                return redirect()->route('admin.dashboard');
+              }
+             
+            default:
+              if (Auth::guard($guard)->check()) {
+                  return redirect('/');
+              }
+              break;
+          }
+          return $next($request);
     }
 }

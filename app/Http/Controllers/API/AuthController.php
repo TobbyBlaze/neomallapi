@@ -20,6 +20,11 @@ class AuthController extends ResponseController
 
     protected $guard = 'seller';
 
+    public function __construct()
+    {
+      $this->middleware('guest:seller', ['except' => ['logout']]);
+    }
+
     //create user
     public function signup(Request $request)
     {
@@ -200,10 +205,10 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
-        // if(!Auth::attempt($credentials)){
-        //     $error = "Unauthorized";
-        //     return $this->sendError($error, 401);
-        // }
+        if(!Auth::guard('seller')->attempt($credentials)){
+            $error = "Unauthorized";
+            return $this->sendError($error, 401);
+        }
 
         // $seller = $request->seller();
         $seller = $request->user();
