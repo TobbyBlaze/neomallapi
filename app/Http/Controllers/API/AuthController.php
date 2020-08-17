@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ResponseController as ResponseController;
@@ -14,6 +15,11 @@ use Validator;
 
 class AuthController extends ResponseController
 {
+
+    use AuthenticatesUsers;
+
+    protected $guard = 'seller';
+
     //create user
     public function signup(Request $request)
     {
@@ -194,10 +200,10 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials)){
-            $error = "Unauthorized";
-            return $this->sendError($error, 401);
-        }
+        // if(!Auth::attempt($credentials)){
+        //     $error = "Unauthorized";
+        //     return $this->sendError($error, 401);
+        // }
 
         // $seller = $request->seller();
         $seller = $request->user();
