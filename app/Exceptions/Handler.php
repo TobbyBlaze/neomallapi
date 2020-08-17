@@ -5,6 +5,10 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+//newly created
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Arr;
+
 class Handler extends ExceptionHandler
 {
     /**
