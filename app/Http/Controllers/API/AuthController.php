@@ -194,10 +194,11 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
-        // if(!Auth::attempt($credentials)){
-        //     $error = "Unauthorized";
-        //     return $this->sendError($error, 401);
-        // }
+        if(!Auth::attempt($credentials)){
+            $error = "Unauthorized";
+            return $this->sendError($error, 401);
+        }
+
         // $seller = $request->seller();
         $seller = $request->user();
         $success['token'] =  $seller->createToken('token')->accessToken;
