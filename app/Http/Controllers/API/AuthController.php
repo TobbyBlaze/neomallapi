@@ -205,7 +205,7 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
-        if(!Auth::guard('selle')->attempt($credentials)){
+        if(!Auth::guard('seller')->attempt($credentials)){
             $error = "Unauthorized";
             return $this->sendError($error, 401);
         }
