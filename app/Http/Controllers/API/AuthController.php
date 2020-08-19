@@ -210,9 +210,10 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
 
-        $seller = $request->seller();
-        // $seller = $request->user();
-        $success['token'] =  $seller->createToken('token')->accessToken;
+        // $seller = $request->seller();
+        $user = $request->user();
+        // $success['token'] =  $seller->createToken('token')->accessToken;
+        $success['token'] =  $user->createToken('token')->accessToken;
         // $user->api_token = $success['token'];
         // $user->save();
         return $this->sendResponse($success);
