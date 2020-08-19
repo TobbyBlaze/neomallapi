@@ -211,7 +211,7 @@ class AuthController extends ResponseController
         }
 
         // $seller = $request->seller();
-        $user = $request->user();
+        $user = $request->seller();
         // $success['token'] =  $seller->createToken('token')->accessToken;
         $success['token'] =  $user->createToken('token')->accessToken;
         // $user->api_token = $success['token'];
