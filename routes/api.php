@@ -37,17 +37,15 @@ Route::group([ 'prefix' => 'auth'], function (){
 
         Route::post('admin-login', 'API\AuthController@admin_login');
         Route::post('admin-signup', 'API\AuthController@admin_signup');
+
+        Route::get('/', 'GoodsController@index');
         
     });
-    Route::group(['middleware' => ['auth.seller', 'auth.admin', 'auth:api']], function() {
+    Route::group(['middleware' => ['auth:api']], function() {
         Route::get('logout', 'API\AuthController@logout');
-        Route::get('s-logout', 'API\AuthController@seller_logout');
-        Route::get('a-logout', 'API\AuthController@admin_logout');
-
+    
         Route::get('getuser', 'API\AuthController@getUser');
-        Route::get('getseller', 'API\AuthController@getSeller');
-        Route::get('getadmin', 'API\AuthController@getAdmin');
-
+    
         //Goods
 
         // Route::get('home', 'GoodsController@index')->name('home');
@@ -66,6 +64,16 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('order', 'OrderController@store');
         Route::any ( 'found-all', 'FindController@all');
 
+    });
+
+    Route::group(['middleware' => ['auth.seller']], function() {
+        Route::get('s-logout', 'API\AuthController@seller_logout');
+        Route::get('getseller', 'API\AuthController@getSeller');
+    });
+
+    Route::group(['middleware' => ['auth.admin']], function() {
+        Route::get('a-logout', 'API\AuthController@admin_logout');
+        Route::get('getadmin', 'API\AuthController@getAdmin');
     });
 
 //     Route::group(['middleware' => 'auth:api'], function() {
