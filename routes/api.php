@@ -34,36 +34,19 @@ Route::group([ 'prefix' => 'auth'], function (){
 
         Route::post('seller-login', 'API\AuthController@seller_login');
         Route::post('seller-signup', 'API\AuthController@seller_signup');
+
+        Route::post('admin-login', 'API\AuthController@admin_login');
+        Route::post('admin-signup', 'API\AuthController@admin_signup');
         
     });
-    Route::group(['middleware' => ['auth.seller', 'auth:api']], function() {
-        Route::get('logout', 'API\AuthController@logout');
-        Route::get('getuser', 'API\AuthController@getUser');
-
-        //Goods
-
-        // Route::get('home', 'GoodsController@index')->name('home');
-        Route::resource('/', 'GoodsController');
-        Route::resource('show', 'GoodsController');
-        Route::get('prdetails/{id}', 'GoodsController@show');
-        // Route::resource('prdetails', 'GoodsController');
-        // Route::resource('show', 'GoodsController');
-        Route::resource('review', 'ReviewsController');
-        Route::any('storereview/{id}', 'ReviewsController@store');
-        Route::resource('shcart', 'CartsController');
-        // Route::any('storecart/{id}', 'CartsController@store');
-        // Route::any('storecart', 'CartsController@store');
-        Route::post('storecart', 'CartsController@store');
-        Route::any('clearcart', 'CartsController@clear');
-        Route::post('order', 'OrderController@store');
-        Route::any ( 'found-all', 'FindController@all');
-
-    });
-
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => ['auth.seller', 'auth.admin', 'auth:api']], function() {
         Route::get('logout', 'API\AuthController@logout');
         Route::get('s-logout', 'API\AuthController@seller_logout');
+        Route::get('a-logout', 'API\AuthController@admin_logout');
+
         Route::get('getuser', 'API\AuthController@getUser');
+        Route::get('getseller', 'API\AuthController@getSeller');
+        Route::get('getadmin', 'API\AuthController@getAdmin');
 
         //Goods
 
@@ -84,6 +67,31 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::any ( 'found-all', 'FindController@all');
 
     });
+
+//     Route::group(['middleware' => 'auth:api'], function() {
+//         Route::get('logout', 'API\AuthController@logout');
+//         Route::get('s-logout', 'API\AuthController@seller_logout');
+//         Route::get('getuser', 'API\AuthController@getUser');
+
+//         //Goods
+
+//         // Route::get('home', 'GoodsController@index')->name('home');
+//         Route::resource('/', 'GoodsController');
+//         Route::resource('show', 'GoodsController');
+//         Route::get('prdetails/{id}', 'GoodsController@show');
+//         // Route::resource('prdetails', 'GoodsController');
+//         // Route::resource('show', 'GoodsController');
+//         Route::resource('review', 'ReviewsController');
+//         Route::any('storereview/{id}', 'ReviewsController@store');
+//         Route::resource('shcart', 'CartsController');
+//         // Route::any('storecart/{id}', 'CartsController@store');
+//         // Route::any('storecart', 'CartsController@store');
+//         Route::post('storecart', 'CartsController@store');
+//         Route::any('clearcart', 'CartsController@clear');
+//         Route::post('order', 'OrderController@store');
+//         Route::any ( 'found-all', 'FindController@all');
+
+//     });
 });
 
 Route::get('/', 'GoodsController@index');

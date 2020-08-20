@@ -63,13 +63,17 @@ class Handler extends ExceptionHandler
         $guard = Arr::get($exception->guards(), 0);
 
        switch ($guard) {
-         case 'seller':
-           $login='seller.login';
-           break;
+            case 'seller':
+                $login='seller.login';
+                break;
 
-         default:
-           $login='login';
-           break;
+            case 'admin':
+                $login='admin.login';
+                break;
+
+            default:
+                $login='login';
+                break;
        }
 
         return redirect()->guest(route($login));

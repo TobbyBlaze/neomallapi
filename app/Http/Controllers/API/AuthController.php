@@ -18,7 +18,7 @@ class AuthController extends ResponseController
 
     use AuthenticatesUsers;
 
-    protected $guard = 'seller';
+    // protected $guard = 'seller';
 
     public function __construct()
     {
@@ -206,7 +206,7 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
         if(!Auth::guard('seller')->attempt($credentials)){
-            $error = "Unauthorized";
+            $error = "Unauthorized seller";
             return $this->sendError($error, 401);
         }
 
@@ -224,7 +224,7 @@ class AuthController extends ResponseController
     public function seller_logout(Request $request)
     {
         
-        $isSeller = $request->seller()->token()->revoke();
+        $isSeller = Auth::guard('seller')->user()->token()->revoke();
         if($isSeller){
             $success['message'] = "Successfully logged out.";
             return $this->sendResponse($success);
@@ -241,7 +241,7 @@ class AuthController extends ResponseController
     public function getSeller(Request $request)
     {
         //$id = $request->user()->id;
-        $seller = $request->seller();
+        $seller = Auth::guard('seller')->user();
         if($seller){
             return $this->sendResponse($seller);
         }
@@ -295,14 +295,12 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials)){
-            $error = "Unauthorized";
+        if(!Auth::guard('admin')->attempt($credentials)){
+            $error = "Unauthorized admin";
             return $this->sendError($error, 401);
         }
-        $admin = $request->admin();
-        $success['token'] =  $admin->createToken('token')->accessToken;
-        // $user->api_token = $success['token'];
-        // $user->save();
+        $user = Auth::guard('admin')->user();
+        $success['token'] =  $user->createToken('token')->accessToken;
         return $this->sendResponse($success);
     }
 
@@ -310,7 +308,7 @@ class AuthController extends ResponseController
     public function admin_logout(Request $request)
     {
         
-        $isAdmin = $request->admin()->token()->revoke();
+        $isAdmin = Auth::guard('admin')->user()->token()->revoke();
         if($isAdmin){
             $success['message'] = "Successfully logged out.";
             return $this->sendResponse($success);
@@ -327,7 +325,7 @@ class AuthController extends ResponseController
     public function getAdmin(Request $request)
     {
         //$id = $request->user()->id;
-        $admin = $request->admin();
+        $admin = Auth::guard('admin')->user();
         if($admin){
             return $this->sendResponse($admin);
         }
