@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\Cors::class,
         'auth.seller' => \App\Http\Middleware\SellerProvider::class,
-        // 'auth.admin' => \App\Http\Middleware\AdminProvider::class,
+        'auth.admin' => \App\Http\Middleware\AdminProvider::class,
     ];
 
     /**
@@ -74,7 +74,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewarePriority = [
         \App\Http\Middleware\SellerProvider::class,
-        // \App\Http\Middleware\AdminProvider::class,
+        \App\Http\Middleware\AdminProvider::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\Authenticate::class,
