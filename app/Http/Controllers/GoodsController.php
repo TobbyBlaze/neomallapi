@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Storage;
-use lluminate\Database\Eloquent\Collection\visits;
+// use Illuminate\Database\Eloquent\Collection\visits;
 use App\Good;
 use App\Cart;
 use App\Review;
 use App\User;
+use App\Seller;
 use App\Notifications\NewCart;
 use App\Notifications\NewReview;
 use Auth;
@@ -17,6 +20,15 @@ use DB;
 
 class GoodsController extends Controller
 {
+
+    use AuthenticatesUsers;
+
+    // protected $guard = 'seller';
+
+    public function __construct()
+    {
+      $this->middleware('guest:seller', ['except' => ['logout']]);
+    }
 
     // public function __construct()
     // {
