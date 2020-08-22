@@ -70,7 +70,7 @@ Route::group([ 'prefix' => 'auth'], function (){
     Route::group(['middleware' => ['auth.seller']], function() {
         Route::get('s-logout', 'API\AuthController@seller_logout');
         Route::get('getseller', 'API\AuthController@getSeller');
-        Route::post('store', 'GoodsController@store');
+        Route::post('storegood', 'GoodsController@store');
     });
 
     Route::group(['middleware' => ['auth.admin']], function() {
