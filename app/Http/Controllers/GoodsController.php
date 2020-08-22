@@ -81,7 +81,7 @@ class GoodsController extends Controller
     public function store(Request $request)
     {
 
-        // $user = Seller::find(Auth::guard('seller')->user()->id);
+        $user = Seller::find(Auth::guard('seller')->user()->id);
         // $user = User::find(1);
 
         $this->validate($request, ['name' => 'required']);
