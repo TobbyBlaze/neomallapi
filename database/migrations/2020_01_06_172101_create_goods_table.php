@@ -15,7 +15,7 @@ class CreateGoodsTable extends Migration
     {
         Schema::create('goods', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('seller_id')->unsigned()->nullable();
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->string('image')->nullable();
@@ -24,7 +24,7 @@ class CreateGoodsTable extends Migration
             $table->bigInteger('views')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');
         });
     }
 
