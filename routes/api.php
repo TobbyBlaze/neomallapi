@@ -74,7 +74,7 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('storegood', 'GoodsController@store');
     });
 
-    Route::group(['middleware' => ['auth.admin']], function() {
+    Route::group(['middleware' => ['auth:api', 'auth.admin']], function() {
         Route::get('a-logout', 'API\AuthController@admin_logout');
         Route::get('getadmin', 'API\AuthController@getAdmin');
     });
