@@ -241,9 +241,9 @@ class AuthController extends ResponseController
     public function getSeller(Request $request)
     {
         //$id = $request->user()->id;
-        $user = Auth::guard('seller')->user();
-        if($user){
-            return $this->sendResponse($user);
+        $seller = Auth::user();
+        if($seller){
+            return $this->sendResponse($seller);
         }
         else{
             $error = "user not found";
