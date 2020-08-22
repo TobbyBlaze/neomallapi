@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Seller;
+use App\Admin;
 use App\Good;
 use App\Cart;
 use App\Review;
@@ -69,6 +70,7 @@ Route::group([ 'prefix' => 'auth'], function (){
     Route::group(['middleware' => ['auth.seller']], function() {
         Route::get('s-logout', 'API\AuthController@seller_logout');
         Route::get('getseller', 'API\AuthController@getSeller');
+        Route::post('store', 'GoodsController@store');
     });
 
     Route::group(['middleware' => ['auth.admin']], function() {
@@ -102,7 +104,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 //     });
 });
 
-Route::get('/', 'GoodsController@index');
+// Route::get('/', 'GoodsController@index');
 // Route::get('prdetails/{id}', 'GoodsController@show');
 
 // Route::get('home', 'GoodsController@index')->name('home');
