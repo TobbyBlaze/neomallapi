@@ -68,7 +68,7 @@ class GoodsController extends Controller
     public function store(Request $request)
     {
 
-        $user = User::find(auth::user()->id);
+        $user = User::find(Auth::guard('seller')->user()->id);
         // $user = User::find(1);
 
         $this->validate($request, ['name' => 'required']);
@@ -96,7 +96,7 @@ class GoodsController extends Controller
             $good->price = $request->input('price');
             $good->category = $request->input('category');
             // $good->quantity = $request->input('quantity');
-            $good->user_id = auth()->user()->id;
+            $good->user_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
             if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
@@ -119,7 +119,7 @@ class GoodsController extends Controller
             $good->price = $request->input('price');
             $good->category = $request->input('category');
             // $good->quantity = $request->input('quantity');
-            $good->user_id = auth()->user()->id;
+            $good->user_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
             $good->save();
