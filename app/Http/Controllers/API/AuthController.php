@@ -242,7 +242,7 @@ class AuthController extends ResponseController
     {
         //$id = $request->user()->id;
         // $seller = Auth::guard('seller')->user();
-        $seller = $request->guard('seller')->user();
+        $seller = Auth::guard('seller')->$request->user();
         // return $this->sendResponse($seller);
         if($seller){
             return $this->sendResponse($seller);
