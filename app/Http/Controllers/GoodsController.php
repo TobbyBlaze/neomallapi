@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +16,7 @@ use App\User;
 use App\Seller;
 use App\Notifications\NewCart;
 use App\Notifications\NewReview;
-// use Auth;
+use Auth;
 use DB;
 
 class GoodsController extends Controller
