@@ -20,10 +20,10 @@ class AuthController extends ResponseController
 
     // protected $guard = 'seller';
 
-    public function __construct()
-    {
-      $this->middleware('guest:seller', ['except' => ['logout']]);
-    }
+    // public function __construct()
+    // {
+    //   $this->middleware('guest:seller', ['except' => ['logout']]);
+    // }
 
     //create user
     public function signup(Request $request)
@@ -224,7 +224,7 @@ class AuthController extends ResponseController
     public function seller_logout(Request $request)
     {
         
-        $isSeller = Auth::guard('seller')->user()->token()->revoke();
+        $isSeller = $request->user()->token()->revoke();
         if($isSeller){
             $success['message'] = "Successfully logged out.";
             return $this->sendResponse($success);
@@ -241,15 +241,16 @@ class AuthController extends ResponseController
     public function getSeller(Request $request)
     {
         //$id = $request->user()->id;
-        $seller = Auth::guard('seller')->user();
-        return $this->sendResponse($seller);
-        // if($seller){
-        //     return $this->sendResponse($seller);
-        // }
-        // else{
-        //     $error = "user not found";
-        //     return $this->sendResponse($error);
-        // }
+        // $seller = Auth::guard('seller')->user();
+        $seller = $request->user();
+        // return $this->sendResponse($seller);
+        if($seller){
+            return $this->sendResponse($seller);
+        }
+        else{
+            $error = "seller not found";
+            return $this->sendResponse($error);
+        }
     }
 
 
@@ -309,7 +310,7 @@ class AuthController extends ResponseController
     public function admin_logout(Request $request)
     {
         
-        $isAdmin = Auth::guard('admin')->user()->token()->revoke();
+        $isAdmin = $request->user()->token()->revoke();
         if($isAdmin){
             $success['message'] = "Successfully logged out.";
             return $this->sendResponse($success);
@@ -326,12 +327,12 @@ class AuthController extends ResponseController
     public function getAdmin(Request $request)
     {
         //$id = $request->user()->id;
-        $admin = Auth::guard('admin')->user();
+        $admin = $request->user();
         if($admin){
             return $this->sendResponse($admin);
         }
         else{
-            $error = "user not found";
+            $error = "admin not found";
             return $this->sendResponse($error);
         }
     }
