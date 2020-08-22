@@ -134,7 +134,7 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             // $good->user_id = Auth::user()->id;
-            $good->seller_id = Auth::guard('seller')->user()->id;
+            $good->seller_id = $user->id;
             // $good->user_id = 1;
         
             $good->save();
