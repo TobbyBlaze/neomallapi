@@ -90,7 +90,7 @@ class GoodsController extends Controller
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('file')){
+        if($request->hasFile('good_pics')){
             $filenameWithExt = $request->file('good_pics')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('good_pics')->getClientOriginalExtension();
@@ -108,9 +108,9 @@ class GoodsController extends Controller
             $good->description = $request->input('description');
             $good->price = $request->input('price');
             $good->category = $request->input('category');
-            // $good->quantity = $request->input('quantity');
-            $good->user_id = Auth::guard('seller')->user()->id;
-            // $good->seller_id = Auth::guard('seller')->user()->id;
+            $good->quantity = $request->input('quantity');
+            // $good->user_id = Auth::guard('seller')->user()->id;
+            $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
             if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
@@ -132,9 +132,9 @@ class GoodsController extends Controller
             $good->description = $request->input('description');
             $good->price = $request->input('price');
             $good->category = $request->input('category');
-            // $good->quantity = $request->input('quantity');
-            $good->user_id = Auth::id;
-            // $good->seller_id = Auth::guard('seller')->user()->id;
+            $good->quantity = $request->input('quantity');
+            // $good->user_id = Auth::user()->id;
+            $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
             $good->save();

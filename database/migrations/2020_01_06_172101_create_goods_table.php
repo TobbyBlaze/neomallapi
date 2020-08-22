@@ -21,6 +21,7 @@ class CreateGoodsTable extends Migration
             $table->string('image')->nullable();
             $table->string('category')->nullable();
             $table->bigInteger('price');
+            $table->bigInteger('quantity')->nullable();
             $table->bigInteger('views')->nullable();
             $table->timestamps();
 
