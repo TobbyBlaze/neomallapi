@@ -84,21 +84,21 @@ class GoodsController extends Controller
         $user = Seller::find(Auth::user()->id);
         // $user = User::find(1);
 
-        $this->validate($request, ['name' => 'required']);
+        $this->validate($request, ['name' => 'required', 'good_pics' => 'required']);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('file')){
-            $filenameWithExt = $request->file('file')->getClientOriginalName();
+        if($request->hasFile('good_pics')){
+            $filenameWithExt = $request->file('good_pics')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('file')->getClientOriginalExtension();
+            $extension = $request->file('good_pics')->getClientOriginalExtension();
             $filenameToStore = $filename.'_'.time().'.'.$extension;
             //$path = $request->file('file')->storeAs('public/files/documents', $filenameToStore);
             
             if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
-                $path = $request->file('file')->storeAs('public/files/images', $filenameToStore);
+                $path = $request->file('good_pics')->storeAs('public/files/images', $filenameToStore);
             }
 
             //create good
