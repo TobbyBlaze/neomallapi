@@ -84,7 +84,9 @@ class GoodsController extends Controller
         $user = Seller::find(Auth::user()->id);
         // $user = User::find(1);
 
-        $this->validate($request, ['name' => 'required', 'goodPics' => 'required']);
+        $this->validate($request, ['name' => 'required',
+        // 'goodPics' => 'required'
+        ]);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
