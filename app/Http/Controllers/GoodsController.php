@@ -92,7 +92,7 @@ class GoodsController extends Controller
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('goodPics')){
+        // if($request->hasFile('goodPics')){
             // $filenameWithExt = $request->file('goodPics')->getClientOriginalName();
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('goodPics')->getClientOriginalExtension();
@@ -136,26 +136,26 @@ class GoodsController extends Controller
             // return redirect('/')->with('success', 'good created successfully');
             return response()->json($good, 201);
             
-        }else{
-            $filenameToStore = 'NoFile';
+        // }else{
+        //     $filenameToStore = 'NoFile';
 
-            //create good
+        //     //create good
 
-            $good = new Good;
-            $good->name = $request->input('name');
-            $good->description = $request->input('description');
-            $good->price = $request->input('price');
-            $good->category = $request->input('category');
-            $good->quantity = $request->input('quantity');
-            $good->seller_id = Auth::user()->id;
-            // $good->seller_id = Auth::guard('seller')->user()->id;
-            // $good->user_id = 1;
+        //     $good = new Good;
+        //     $good->name = $request->input('name');
+        //     $good->description = $request->input('description');
+        //     $good->price = $request->input('price');
+        //     $good->category = $request->input('category');
+        //     $good->quantity = $request->input('quantity');
+        //     $good->seller_id = Auth::user()->id;
+        //     // $good->seller_id = Auth::guard('seller')->user()->id;
+        //     // $good->user_id = 1;
         
-            $good->save();
+        //     $good->save();
 
-            // return redirect('/')->with('success', 'good created successfully');
-            return response()->json($good, 201);
-        }
+        //     // return redirect('/')->with('success', 'good created successfully');
+        //     return response()->json($good, 201);
+        // }
 
     }
 
