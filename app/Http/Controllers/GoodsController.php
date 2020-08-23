@@ -84,21 +84,31 @@ class GoodsController extends Controller
         $user = Seller::find(Auth::user()->id);
         // $user = User::find(1);
 
-        $this->validate($request, ['name' => 'required', 'good_pics' => 'required']);
+        $this->validate($request, ['name' => 'required', 'goodPics' => 'required']);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('good_pics')){
-            $filenameWithExt = $request->file('good_pics')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('good_pics')->getClientOriginalExtension();
-            $filenameToStore = $filename.'_'.time().'.'.$extension;
-            //$path = $request->file('file')->storeAs('public/files/documents', $filenameToStore);
+        if($request->hasFile('goodPics')){
+            // $filenameWithExt = $request->file('goodPics')->getClientOriginalName();
+            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // $extension = $request->file('goodPics')->getClientOriginalExtension();
+            // $filenameToStore = $filename.'_'.time().'.'.$extension;
+            // //$path = $request->file('file')->storeAs('public/files/documents', $filenameToStore);
             
-            if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
-                $path = $request->file('good_pics')->storeAs('public/files/images', $filenameToStore);
+            // if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
+            //     $path = $request->file('goodPics')->storeAs('public/files/images', $filenameToStore);
+            // }
+
+            foreach ($request->file('goodPics') as $sin_good_pics){
+                // $filenameWithExt = $request->file('file')->getClientOriginalName();
+                $filenameWithExt = $sin_good_pics->getClientOriginalName();
+                //
+                $sin_good_pics->move(public_path().'/file/', $filenameWithExt);
+                $good_pics_data[] = $filenameWithExt;
+                
+                $extension = $sin_good_pics->getClientOriginalExtension();
             }
 
             //create good
@@ -110,13 +120,14 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
+            $good->image = json_encode($good_pics_data);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
-            if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
-                $good->image = $filenameToStore;
-            }
+            // if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
+            //     $good->image = $filenameToStore;
+            // }
             
             $good->save();
 
