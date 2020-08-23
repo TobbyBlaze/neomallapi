@@ -90,15 +90,15 @@ class GoodsController extends Controller
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('good_pics')){
-            $filenameWithExt = $request->file('good_pics')->getClientOriginalName();
+        if($request->hasFile('file')){
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('good_pics')->getClientOriginalExtension();
+            $extension = $request->file('file')->getClientOriginalExtension();
             $filenameToStore = $filename.'_'.time().'.'.$extension;
             //$path = $request->file('file')->storeAs('public/files/documents', $filenameToStore);
             
             if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
-                $path = $request->file('good_pics')->storeAs('public/files/images', $filenameToStore);
+                $path = $request->file('file')->storeAs('public/files/images', $filenameToStore);
             }
 
             //create good
