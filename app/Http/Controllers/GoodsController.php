@@ -51,12 +51,16 @@ class GoodsController extends Controller
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
         ->paginate(20);
 
+        $users = User::get();
+        $sellers = Seller::get();
+
         $data = [
 
             // 'user' => $user,
             'goods'=>$goods,
             'reviews' => $reviews,
-
+            'users'=>$users,
+            'sellers' => $sellers,
         ];
 
         return response()->json($data,200);
