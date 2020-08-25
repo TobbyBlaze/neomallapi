@@ -46,6 +46,8 @@ class CartsController extends Controller
         ->where('carts.user_id', $user->id)
         ->paginate(20);
 
+        $cartsNum = Cart::get()->count();
+
         // dd($carts);
 
         // $reviews = Review::orderBy('reviews.updated_at', 'desc')
@@ -57,6 +59,7 @@ class CartsController extends Controller
 
             'user' => $user,
             'carts'=>$carts,
+            'cartsNum'=>$cartsNum,
             // 'reviews' => $reviews,
 
         ];
