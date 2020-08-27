@@ -51,7 +51,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 
         // Route::get('home', 'GoodsController@index')->name('home');
         Route::resource('/', 'GoodsController');
-        Route::get('products{id}', 'StoreController@index');
+        Route::get('products/{id}', 'StoreController@index');
         Route::resource('show', 'GoodsController');
         Route::get('prdetails/{id}', 'GoodsController@show');
         // Route::resource('prdetails', 'GoodsController');
