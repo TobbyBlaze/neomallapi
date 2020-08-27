@@ -199,6 +199,23 @@ class CartsController extends Controller
         return response()->json($cart, 201);
     }
 
+    public function delete(Request $request)
+    {
+        $cart = Cart::find($request->input('id'));
+        // $cart->delete();
+        // return response()->json($cart, 200);
+
+        // if(auth()->user()->id !== $cart->user_id){
+        //     return redirect('/')->with('error', 'Unauthorised page');
+        // }
+
+        // Storage::delete('public/files/documents/'.$cart->file);
+        // Storage::delete('public/files/images/'.$cart->image);
+        $cart->delete();
+
+        return response()->json($cart, 201);
+    }
+
     public function clear()
     {
         $cart = Cart::orderBy('carts.updated_at', 'desc')
