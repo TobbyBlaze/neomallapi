@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Support\Facades\Storage;
-// use Illuminate\Database\Eloquent\Collection\visits;
 use App\Good;
 use App\Cart;
 use App\Review;
