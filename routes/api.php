@@ -62,6 +62,7 @@ Route::group([ 'prefix' => 'auth'], function (){
         // Route::any('storecart', 'CartsController@store');
         Route::post('storecart', 'CartsController@store');
         Route::post('storewish', 'WishController@store');
+        Route::any('deletecart/{id}', 'CartsController@destroy');
         Route::any('clearcart', 'CartsController@clear');
         Route::post('order', 'OrderController@store');
         Route::any ( 'found-all', 'FindController@all');
