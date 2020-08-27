@@ -201,7 +201,8 @@ class CartsController extends Controller
 
     public function delete(Request $request)
     {
-        $cart = Cart::find($request->input('delcart'));
+        $del = $request->input('delcart');
+        $cart = Cart::find($del);
         // $cart->delete();
         // return response()->json($cart, 200);
 
