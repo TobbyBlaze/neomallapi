@@ -37,7 +37,7 @@ class StoreController extends Controller
 
         $data = [
 
-            // 'user' => $user,
+            'seller' => $seller,
             'storeGoods'=>$storeGoods,
             'reviews' => $reviews,
             'users'=>$users,
