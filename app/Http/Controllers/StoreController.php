@@ -26,7 +26,7 @@ class StoreController extends Controller
     {
         $seller = Seller::find($id);
         $storeGoods = Good::orderBy('goods.updated_at', 'desc')
-        ->where(goods.seller_id, $seller->id)
+        ->where('goods.seller_id', $seller->id)
         ->paginate(20);
 
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
