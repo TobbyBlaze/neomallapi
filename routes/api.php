@@ -69,6 +69,8 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('order', 'OrderController@store');
         Route::any ( 'found-all', 'FindController@all');
 
+        // Route::get('prdetails/{id}', 'GoodsController@show');
+
     });
 
     Route::group(['middleware' => ['auth:api', 'auth.seller']], function() {
@@ -110,6 +112,9 @@ Route::group([ 'prefix' => 'auth'], function (){
 });
 
 Route::get('/', 'GoodsController@index');
+Route::get('products/{id}', 'StoreController@index');
+Route::get('prdetails/{id}', 'GoodsController@show');
+
 // Route::get('prdetails/{id}', 'GoodsController@show');
 
 // Route::get('home', 'GoodsController@index')->name('home');

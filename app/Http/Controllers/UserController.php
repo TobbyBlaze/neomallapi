@@ -16,22 +16,22 @@ use DB;
 
 class UserController extends Controller
 {
-    public function viewProfile(int $profileId)
+    public function viewProfile()
     {
-        $user = User::find($profileId);
+        $user = Auth::user();
         if($user){
         // $users = User::where('users.status', '!=', auth()->user()->status)->orWhere('users.department', '=', auth()->user()->department)->orWhere('users.school', '=', auth()->user()->school)->orWhere('users.college', '=', auth()->user()->college)->orderBy('users.created_at', 'desc')->paginate(10);
 
-        $goods = Good::orderBy('updated_at', 'desc')->where('goods.user_id', $user->id)->paginate(20);
+        // $goods = Good::orderBy('updated_at', 'desc')->where('goods.user_id', $user->id)->paginate(20);
         //$users = User::orderBy('updated_at', 'desc');
 
-        $reviews = Review::orderBy('reviews.updated_at', 'desc')
-        ->paginate(20);
+        // $reviews = Review::orderBy('reviews.updated_at', 'desc')
+        // ->paginate(20);
 
         $profile_data = [
             'user' => '$user',
-            'goods' => '$goods',
-            'reviews' => '$reviews',
+            // 'goods' => '$goods',
+            // 'reviews' => '$reviews',
         ];
         
         return response()->json($profile_data, 201);
