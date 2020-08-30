@@ -46,7 +46,7 @@ class CartsController extends Controller
         ->where('carts.user_id', $user->id)
         ->paginate(20);
 
-        $cartsNum = Cart::get()->count();
+        $cartsNum = Cart::get()->where('carts.user_id', $user->id)->count();
 
         // dd($carts);
 
