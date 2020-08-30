@@ -109,7 +109,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 //     });
 });
 
-// Route::get('/', 'GoodsController@index');
+Route::get('/', 'GoodsController@index');
 // Route::get('prdetails/{id}', 'GoodsController@show');
 
 // Route::get('home', 'GoodsController@index')->name('home');
