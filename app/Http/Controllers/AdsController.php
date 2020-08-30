@@ -4,62 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use Illuminate\Support\Facades\Storage;
-use App\Good;
-use App\Cart;
-use App\Review;
+use App\Ads;
 use App\User;
-use App\Seller;
 use App\Notifications\NewCart;
 use App\Notifications\NewReview;
 use Auth;
 use DB;
 
-class GoodsController extends Controller
+class AdsController extends Controller
 {
-
-    // use AuthenticatesUsers;
-
-    // protected $guard = 'seller';
-
-    // public function __construct()
-    // {
-    //   $this->middleware('guest:seller', ['except' => ['logout']]);
-    // }
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth', ['except' => ['index']]);
-    //     // $this->middleware('cors');
-    // }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         // $user = User::find(auth::user()->id);
 
-        $goods = Good::orderBy('goods.updated_at', 'desc')
-        ->paginate(20);
-
-        $reviews = Review::orderBy('reviews.updated_at', 'desc')
+        $ads = Ads::orderBy('ads.updated_at', 'desc')
         ->paginate(20);
 
         $users = User::get();
-        $sellers = Seller::get();
 
         $data = [
 
             // 'user' => $user,
-            'goods'=>$goods,
-            'reviews' => $reviews,
+            'ads'=>$ads,
             'users'=>$users,
-            'sellers' => $sellers,
+
         ];
 
         return response()->json($data,200);
@@ -72,7 +41,7 @@ class GoodsController extends Controller
      */
     public function create()
     {
-        return view('goods.create');
+        return view('ads.create');
     }
 
     /**
@@ -84,18 +53,18 @@ class GoodsController extends Controller
     public function store(Request $request)
     {
 
-        $user = Seller::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
         // $user = User::find(1);
 
         $this->validate($request, ['name' => 'required',
-        'goodPics' => 'required'
+        'adsPics' => 'required'
         ]);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('goodPics')){
+        if($request->hasFile('adsPics')){
             // $filenameWithExt = $request->file('goodPics')->getClientOriginalName();
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('goodPics')->getClientOriginalExtension();
@@ -108,24 +77,24 @@ class GoodsController extends Controller
 
             foreach ($request->file('goodPics') as $sin_good_pics){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sin_good_pics->getClientOriginalName();
+                $filenameWithExt = $sin_ads_pics->getClientOriginalName();
                 //
                 $sin_good_pics->move(public_path().'/file/', $filenameWithExt);
-                $good_pics_data[] = $filenameWithExt;
+                $ads_pics_data[] = $filenameWithExt;
                 
-                $extension = $sin_good_pics->getClientOriginalExtension();
+                $extension = $sin_ads_pics->getClientOriginalExtension();
             }
 
             //create good
 
-            $good = new Good;
-            $good->name = $request->input('name');
-            $good->description = $request->input('description');
-            $good->price = $request->input('price');
-            $good->category = $request->input('category');
-            $good->quantity = $request->input('quantity');
-            $good->seller_id = Auth::user()->id;
-            $good->image = json_encode($good_pics_data);
+            $ads = new Ads;
+            $ads->name = $request->input('name');
+            $ads->description = $request->input('description');
+            $ads->price = $request->input('price');
+            $ads->category = $request->input('category');
+            $ads->quantity = $request->input('quantity');
+            $ads->seller_id = Auth::user()->id;
+            $ads->image = json_encode($ads_pics_data);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
@@ -134,30 +103,30 @@ class GoodsController extends Controller
             //     $good->image = $filenameToStore;
             // }
             
-            $good->save();
+            $ads->save();
 
             // return redirect('/')->with('success', 'good created successfully');
-            return response()->json($good, 201);
+            return response()->json($ads, 201);
             
         }else{
             $filenameToStore = 'NoFile';
 
             //create good
 
-            $good = new Good;
-            $good->name = $request->input('name');
-            $good->description = $request->input('description');
-            $good->price = $request->input('price');
-            $good->category = $request->input('category');
-            $good->quantity = $request->input('quantity');
-            $good->seller_id = Auth::user()->id;
+            $ads = new Ads;
+            $ads->name = $request->input('name');
+            $ads->description = $request->input('description');
+            $ads->price = $request->input('price');
+            $ads->category = $request->input('category');
+            $ads->quantity = $request->input('quantity');
+            $ads->seller_id = Auth::user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
         
-            $good->save();
+            $ads->save();
 
             // return redirect('/')->with('success', 'good created successfully');
-            return response()->json($good, 201);
+            return response()->json($ads, 201);
         }
 
     }
@@ -170,24 +139,21 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        $good = Good::find($id);
+        $ad = Ads::find($id);
 
         // $user = User::find($id);
 
-        $goods = Good::all();
+        $adss = Ads::all();
 
-        $reviews = Review::orderBy('reviews.updated_at', 'desc')
-        ->paginate(20);
-
-        $good_data = [
-            'good' => $good,
-            'goods' => $goods,
+        $ads_data = [
+            'ad' => $ad,
+            'ads' => $ads,
             // 'user' => '$user',
             // 'users' => $users,
-            'reviews' => $reviews,
+           
         ];
 
-        return response()->json($good_data);
+        return response()->json($ads_data);
     }
 
     /**
@@ -198,7 +164,7 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        $good = Good::find($id);
+        $ads = Good::find($id);
         // $good->update($request->all());
         // return response()->json($good, 200);
 
