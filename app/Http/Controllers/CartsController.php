@@ -31,7 +31,7 @@ class CartsController extends Controller
      */
     public function index()
     {
-        $user = User::find(auth::id());
+        $user = User::find(auth::user());
         // $user = User::find(1);
         
         // $carts = cart::orderBy('carts.updated_at', 'desc')->paginate(20);
