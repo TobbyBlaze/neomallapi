@@ -12,7 +12,8 @@ use App\Review;
 use App\User;
 use App\Notifications\NewReview;
 use App\Notifications\NewCart;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+// use Auth;
 use DB;
 
 class CartsController extends Controller
