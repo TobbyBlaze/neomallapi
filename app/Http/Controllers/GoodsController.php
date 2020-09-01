@@ -47,6 +47,9 @@ class GoodsController extends Controller
         $goods = Good::orderBy('goods.updated_at', 'desc')
         ->paginate(20);
 
+        $popGoods = Good::orderBy('goods.views', 'desc')
+        ->paginate(20);
+
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
         ->paginate(20);
 
@@ -57,6 +60,7 @@ class GoodsController extends Controller
 
             // 'user' => $user,
             'goods'=>$goods,
+            'popGoods'=>$popGoods,
             'reviews' => $reviews,
             'users'=>$users,
             'sellers' => $sellers,
@@ -178,6 +182,15 @@ class GoodsController extends Controller
 
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
         ->paginate(20);
+
+        Good::where('id', '=', $id)
+        ->update([
+            // Increment the view counter field
+            'views' => 
+            $good->views + 1        ,
+            // Prevent the updated_at column from being refreshed every time there is a new view
+            'updated_at' => \DB::raw('updated_at')   
+        ]);
 
         $good_data = [
             'good' => $good,
