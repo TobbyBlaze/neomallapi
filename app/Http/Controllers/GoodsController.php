@@ -95,10 +95,10 @@ class GoodsController extends Controller
             "attachments.max" => "file can't be more than 3."
          ];
 
-        $this->validate($request, ['name' => 'required',
-            'file.*' => 'mimes:jpg,jpeg,bmp,png,gif,pdf,docx,doc,tex,txt,pptx,csv,xlsx,xls|max:20000',
-            'file' => 'max:3',
-        ], $messages);
+        // $this->validate($request, ['name' => 'required',
+        //     'file.*' => 'mimes:jpg,jpeg,bmp,png,gif,pdf,docx,doc,tex,txt,pptx,csv,xlsx,xls|max:20000',
+        //     'file' => 'max:2',
+        // ], $messages);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
