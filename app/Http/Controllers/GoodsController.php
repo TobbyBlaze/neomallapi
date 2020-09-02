@@ -96,22 +96,33 @@ class GoodsController extends Controller
          ];
 
         $this->validate($request, ['name' => 'required',
-            'goodPics' => 'max:3',
+            'file.*' => 'mimes:jpg,jpeg,bmp,png,gif,pdf,docx,doc,tex,txt,pptx,csv,xlsx,xls|max:20000',
+            'file' => 'max:3',
         ], $messages);
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        if($request->hasFile('goodPics')){
-            foreach ($request->file('goodPics') as $sin_good_pics){
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sin_good_pics->getClientOriginalName();
-                //
-                $sin_good_pics->move(public_path().'/file/', $filenameWithExt);
-                $good_pics_data[] = $filenameWithExt;
+        if($request->hasFile('file')){
+            // foreach ($request->file('goodPics') as $sin_good_pics){
+            //     // $filenameWithExt = $request->file('file')->getClientOriginalName();
+            //     $filenameWithExt = $sin_good_pics->getClientOriginalName();
+            //     //
+            //     $sin_good_pics->move(public_path().'/file/', $filenameWithExt);
+            //     $good_pics_data[] = $filenameWithExt;
                 
-                $extension = $sin_good_pics->getClientOriginalExtension();
+            //     $extension = $sin_good_pics->getClientOriginalExtension();
+            // }
+
+            foreach ($request->file('file') as $sinfile){
+                // $filenameWithExt = $request->file('file')->getClientOriginalName();
+                $filenameWithExt = $sinfile->getClientOriginalName();
+                //
+                $sinfile->move(public_path().'/file/', $filenameWithExt);
+                $data[] = $filenameWithExt;
+                
+                $extension = $sinfile->getClientOriginalExtension();
             }
 
             //create good
@@ -123,7 +134,7 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
-            $good->image = json_encode($good_pics_data);
+            $good->image = json_encode($data);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
