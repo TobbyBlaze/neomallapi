@@ -115,7 +115,7 @@ class GoodsController extends Controller
             //     $extension = $sin_good_pics->getClientOriginalExtension();
             // }
 
-            foreach ($request->file('file') as $sinfile){
+            foreach ((array)$request->file('file') as $sinfile){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
