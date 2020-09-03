@@ -127,11 +127,13 @@ class GoodsController extends Controller
 
             
             // for ($i = 1; $i<3; $i++){
-                $sinfile = array($request->file('file1'), $request->file('file2'));
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sinfile->getClientOriginalName();
-                //
-                $sinfile->move(public_path().'/file/', $filenameWithExt);
+                // $sinfile = array($request->file('file1'), $request->file('file2'));
+                $sinfile1 = $request->file('file1');
+                $filenameWithExt = $sinfile1->getClientOriginalName();
+                $sinfile1->move(public_path().'/file/', $filenameWithExt);
+                $sinfile2 = $request->file('file2');
+                $filenameWithExt = $sinfile2->getClientOriginalName();
+                $sinfile2->move(public_path().'/file/', $filenameWithExt);
                 $data[] = $filenameWithExt;
                 
                 $extension = $sinfile->getClientOriginalExtension();
