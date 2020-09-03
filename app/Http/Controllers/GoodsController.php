@@ -115,7 +115,19 @@ class GoodsController extends Controller
             //     $extension = $sin_good_pics->getClientOriginalExtension();
             // }
 
-            foreach ($request->file('file') as $sinfile){
+            // foreach ($request->file('file') as $sinfile){
+            //     // $filenameWithExt = $request->file('file')->getClientOriginalName();
+            //     $filenameWithExt = $sinfile->getClientOriginalName();
+            //     //
+            //     $sinfile->move(public_path().'/file/', $filenameWithExt);
+            //     $data[] = $filenameWithExt;
+                
+            //     $extension = $sinfile->getClientOriginalExtension();
+            // }
+
+            
+            // for ($i = 1; $i<3; $i++){
+                $sinfile = array($request->file('file1'), $request->file('file2'));
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
@@ -123,7 +135,7 @@ class GoodsController extends Controller
                 $data[] = $filenameWithExt;
                 
                 $extension = $sinfile->getClientOriginalExtension();
-            }
+            // }
 
             //create good
 
