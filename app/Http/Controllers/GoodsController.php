@@ -151,7 +151,8 @@ class GoodsController extends Controller
             //create good
 
             $good = new Good;
-            $good->name = $request->input('name');
+            // $good->name = $request->input('name');
+            $good->name = 'abaa';
             $good->description = $request->input('description');
             $good->price = $request->input('price');
             $good->category = $request->input('category');
