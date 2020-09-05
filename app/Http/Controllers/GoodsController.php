@@ -169,7 +169,7 @@ class GoodsController extends Controller
             // $good->save();
 
             // return redirect('/')->with('success', 'good created successfully');
-            return response()->json($good, 201);
+            return response()->json($newPath, 201);
             
         // }else{
         //     $filenameToStore = 'NoFile';
