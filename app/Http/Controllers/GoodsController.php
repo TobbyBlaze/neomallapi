@@ -100,6 +100,13 @@ class GoodsController extends Controller
             'file.*' => 'mimes:jpg,jpeg,bmp,png,gif,pdf,docx,doc,tex,txt,pptx,csv,xlsx,xls|max:20000',
             'file' => 'max:2',
         ], $messages);
+
+        // Read file contents...
+        $contents = file_get_contents($request->image->path());
+
+        // ...or just move it somewhere else (eg: local `storage` directory or S3)
+        $newPath = $request->image->store('photos', 's3');
+
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
         // $good = good::create($request->all());
@@ -116,7 +123,7 @@ class GoodsController extends Controller
             //     $extension = $sin_good_pics->getClientOriginalExtension();
             // }
 
-            foreach ($request->file('file') as $sinfile){
+            foreach ($request->file('image') as $sinfile){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
