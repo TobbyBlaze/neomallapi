@@ -154,7 +154,8 @@ class GoodsController extends Controller
             // $good->name = $request->input('name');
             $good->name = 'abaa';
             $good->description = $request->input('description');
-            $good->price = $request->input('price');
+            // $good->price = $request->input('price');
+            $good->price = 10;
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
