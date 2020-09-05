@@ -124,15 +124,15 @@ class GoodsController extends Controller
             // }
 
 
-            foreach ($request->file('image') as $sinfile){
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sinfile->getClientOriginalName();
-                //
-                $sinfile->move(public_path().'/file/', $filenameWithExt);
-                $data[] = $filenameWithExt;
+            // foreach ($request->file('image') as $sinfile){
+            //     // $filenameWithExt = $request->file('file')->getClientOriginalName();
+            //     $filenameWithExt = $sinfile->getClientOriginalName();
+            //     //
+            //     $sinfile->move(public_path().'/file/', $filenameWithExt);
+            //     $data[] = $filenameWithExt;
                 
-                $extension = $sinfile->getClientOriginalExtension();
-            }
+            //     $extension = $sinfile->getClientOriginalExtension();
+            // }
 
             
             // for ($i = 1; $i<3; $i++){
@@ -150,23 +150,23 @@ class GoodsController extends Controller
 
             //create good
 
-            $good = new Good;
-            $good->name = $request->input('name');
-            $good->description = $request->input('description');
-            $good->price = $request->input('price');
-            $good->category = $request->input('category');
-            $good->quantity = $request->input('quantity');
-            $good->seller_id = Auth::user()->id;
-            $good->image = json_encode($data);
-            // $good->user_id = Auth::guard('seller')->user()->id;
-            // $good->seller_id = Auth::guard('seller')->user()->id;
-            // $good->user_id = 1;
+            // $good = new Good;
+            // $good->name = $request->input('name');
+            // $good->description = $request->input('description');
+            // $good->price = $request->input('price');
+            // $good->category = $request->input('category');
+            // $good->quantity = $request->input('quantity');
+            // $good->seller_id = Auth::user()->id;
+            // $good->image = json_encode($data);
+            // // $good->user_id = Auth::guard('seller')->user()->id;
+            // // $good->seller_id = Auth::guard('seller')->user()->id;
+            // // $good->user_id = 1;
         
-            // if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
-            //     $good->image = $filenameToStore;
-            // }
+            // // if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
+            // //     $good->image = $filenameToStore;
+            // // }
             
-            $good->save();
+            // $good->save();
 
             // return redirect('/')->with('success', 'good created successfully');
             return response()->json($good, 201);
