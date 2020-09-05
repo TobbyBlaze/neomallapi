@@ -160,7 +160,7 @@ class GoodsController extends Controller
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
             // $good->image = json_encode($data);
-            $good->image = json_encode($contents);
+            $good->image = json_encode($newPath);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
