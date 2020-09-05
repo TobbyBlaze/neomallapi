@@ -105,7 +105,7 @@ class GoodsController extends Controller
         $contents = file_get_contents($request->image->path());
 
         // ...or just move it somewhere else (eg: local `storage` directory or S3)
-        // $newPath = $request->image->store('photos', 's3');
+        $newPath = $request->image->store('photos', 'storage');
 
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
@@ -124,7 +124,7 @@ class GoodsController extends Controller
             // }
 
 
-            foreach ($request->file('file') as $sinfile){
+            foreach ($request->file('image') as $sinfile){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
