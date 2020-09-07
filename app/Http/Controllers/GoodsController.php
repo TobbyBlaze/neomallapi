@@ -102,10 +102,10 @@ class GoodsController extends Controller
         ], $messages);
 
         // Read file contents...
-        $contents = file_get_contents($request->image->path());
+        // $contents = file_get_contents($request->image->path());
 
-        // ...or just move it somewhere else (eg: local `storage` directory or S3)
-        $newPath = $request->image->store('photos', 'public');
+        // // ...or just move it somewhere else (eg: local `storage` directory or S3)
+        // $newPath = $request->image->store('photos', 'public');
 
         //return 123; 'image' => , 'file' => 'nullable|max:6000'
 
@@ -151,16 +151,16 @@ class GoodsController extends Controller
             //create good
 
             $good = new Good;
-            // $good->name = $request->input('name');
-            $good->name = 'abaa';
+            $good->name = $request->input('name');
+            // $good->name = 'abaa';
             $good->description = $request->input('description');
-            // $good->price = $request->input('price');
-            $good->price = 10;
+            $good->price = $request->input('price');
+            // $good->price = 10;
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
-            // $good->image = json_encode($data);
-            $good->image = json_encode($newPath);
+            $good->image = json_encode($data);
+            // $good->image = json_encode($newPath);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
             // $good->user_id = 1;
