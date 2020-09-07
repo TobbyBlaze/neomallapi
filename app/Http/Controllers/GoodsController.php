@@ -45,7 +45,7 @@ class GoodsController extends Controller
         // $user = User::find(auth::user()->id);
 
         $goods = Good::orderBy('goods.updated_at', 'desc')
-        ->paginate(20);
+        ->paginate(5);
 
         $popGoods = Good::orderBy('goods.views', 'desc')
         ->paginate(20);
