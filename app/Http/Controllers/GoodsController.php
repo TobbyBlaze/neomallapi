@@ -112,7 +112,7 @@ class GoodsController extends Controller
         // $good = good::create($request->all());
         // return response()->json($good, 201);
 
-        // if($request->hasFile('file')){
+        if($request->hasFile('image')){
             // foreach ($request->file('goodPics') as $sin_good_pics){
             //     // $filenameWithExt = $request->file('file')->getClientOriginalName();
             //     $filenameWithExt = $sin_good_pics->getClientOriginalName();
@@ -185,6 +185,7 @@ class GoodsController extends Controller
 
             // return redirect('/')->with('success', 'good created successfully');
             return response()->json($good, 201);
+        }
             
         // }else{
         //     $filenameToStore = 'NoFile';
