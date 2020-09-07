@@ -129,6 +129,7 @@ class GoodsController extends Controller
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
                 $sinfile->move(public_path().'/file/', $filenameWithExt);
+                $data = [];
                 $data[] = $filenameWithExt;
                 
                 $extension = $sinfile->getClientOriginalExtension();
@@ -170,7 +171,7 @@ class GoodsController extends Controller
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
             $good->image = json_encode($data);
-            $post->image = json_encode($data);
+            // $post->image = json_encode($data);
             // $good->image = json_encode($newPath);
             // $good->user_id = Auth::guard('seller')->user()->id;
             // $good->seller_id = Auth::guard('seller')->user()->id;
