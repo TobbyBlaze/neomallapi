@@ -124,12 +124,12 @@ class GoodsController extends Controller
             // }
 
 
-            foreach ($request->file('image') as $sinfile){
+            foreach ($request->file('file') as $sinfile){
                 // $filenameWithExt = $request->file('file')->getClientOriginalName();
                 $filenameWithExt = $sinfile->getClientOriginalName();
                 //
                 $sinfile->move(public_path().'/file/', $filenameWithExt);
-                $data = [];
+                // $data = [];
                 $data[] = $filenameWithExt;
                 
                 $extension = $sinfile->getClientOriginalExtension();
