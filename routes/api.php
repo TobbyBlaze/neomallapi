@@ -112,12 +112,12 @@ Route::get('products/{id}', 'StoreController@show');
 Route::any ( 'search', 'FindController@all');
 
 
-Route::get('details', function () {
+Route::get('location', function () {
 
-    // $ip = '50.90.0.1';
-    $ip = \Request::ip();
+    $ip = '192.168.1.1';
+    // $ip = \Request::ip();
     // $ip = request()->ip();
-    $data = \Location::get($ip);
+    $data = Location::get($ip);
     // dd($data);
     return response()->json($data);
    
