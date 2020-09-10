@@ -117,7 +117,7 @@ Route::get('location', function () {
     // $ip = '50.90.0.1';
     $ip = request()->ip();
     $data = \Location::get($ip);
-    // dd($data);
-    return response()->json($data);
+    dd($data);
+    // return response()->json($data);
    
 });
