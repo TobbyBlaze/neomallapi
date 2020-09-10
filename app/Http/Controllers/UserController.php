@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
-use lluminate\Database\Eloquent\Collection\visits;
 use App\Good;
 use App\Cart;
 use App\User;
@@ -16,53 +15,120 @@ use DB;
 
 class UserController extends Controller
 {
-    public function viewProfile()
+    public function index()
     {
         $user = Auth::user();
         if($user){
-        // $users = User::where('users.status', '!=', auth()->user()->status)->orWhere('users.department', '=', auth()->user()->department)->orWhere('users.school', '=', auth()->user()->school)->orWhere('users.college', '=', auth()->user()->college)->orderBy('users.created_at', 'desc')->paginate(10);
-
-        // $goods = Good::orderBy('updated_at', 'desc')->where('goods.user_id', $user->id)->paginate(20);
-        //$users = User::orderBy('updated_at', 'desc');
-
-        // $reviews = Review::orderBy('reviews.updated_at', 'desc')
-        // ->paginate(20);
-
-        $profile_data = [
-            'user' => '$user',
-            // 'goods' => '$goods',
-            // 'reviews' => '$reviews',
-        ];
-        
-        return response()->json($profile_data, 201);
-        }else{
-            return redirect()->back();
+            $profile_data = [
+                'user' => $user
+            ];
+            
+            return response()->json($profile_data, 201);
         }
-        
     }
 
-    public function stores()
+    public function updateUser(Request $request)
     {
-        $users = User::where('users.status', '==', 'seller')->orderBy('users.created_at', 'desc')->paginate(10);
-        // if($user){
-        // $users = User::where('users.status', '!=', auth()->user()->status)->orWhere('users.department', '=', auth()->user()->department)->orWhere('users.school', '=', auth()->user()->school)->orWhere('users.college', '=', auth()->user()->college)->orderBy('users.created_at', 'desc')->paginate(10);
 
-        $goods = Good::orderBy('updated_at', 'desc')->where('goods.user_id', $user->id)->paginate(20);
-        //$users = User::orderBy('updated_at', 'desc');
+        $user = Auth::user();
 
-        $reviews = Review::orderBy('reviews.updated_at', 'desc')
-        ->paginate(20);
-
-        $profile_data = [
-            'user' => '$user',
-            'goods' => '$goods',
-            'reviews' => '$reviews',
-        ];
+        $user->name = $request->input('name');
+        // $user->title = $request->input('title');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        // $user->status = $request->input('status');
+        $user->bio = $request->input('bio');
+        // $user->email = $request->input('email');
+        $user->phone_number_1 = $request->input('phone_number_1');
+        $user->phone_number_2 = $request->input('phone_number_2');
+        $user->date_of_birth = $request->input('date_of_birth');
+        $user->department = $request->input('department');
+        $user->school = $request->input('school');
+        $user->college = $request->input('college');
         
-        return response()->json($profile_data, 201);
-        // }else{
-        //     return redirect()->back();
-        // }
-        
+        $user->save();
+
+        return response()->json($user, 201);
+
+    }
+
+    public function updateSeller(Request $request)
+    {
+
+        $user = Seller::find(Auth::user()->id);
+
+        $this->validate($request, [
+            'file.*' => 'mimes:jpg,jpeg,png,gif',
+            'file' => 'max:1',
+        ]);
+
+        if($request->hasFile('file')){
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $filenameToStore = $filename.'_'.time().'.'.$extension;
+            //$path = $request->file('file')->storeAs('public/files/documents', $filenameToStore);
+            
+            if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
+                $path = $request->file('file')->storeAs('public/users-avatar', $filenameToStore);
+            }else{
+                // dd($extension);
+            }
+
+            //update user
+
+            $user->name = $request->input('name');
+            // $user->title = $request->input('title');
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            // $user->status = $request->input('status');
+            $user->bio = $request->input('bio');
+            // $user->email = $request->input('email');
+            $user->phone_number_1 = $request->input('phone_number_1');
+            $user->phone_number_2 = $request->input('phone_number_2');
+            $user->date_of_birth = $request->input('date_of_birth');
+            $user->department = $request->input('department');
+            $user->school = $request->input('school');
+            $user->college = $request->input('college');
+
+            //$post->document = $filenameToStore;
+
+            //$extension = $request->file('file')->getClientOriginalExtension();
+            
+            if($extension == "jpg" || $extension == "jpeg" || $extension == "png" || $extension == "gif"){
+                $user->avatar = $filenameToStore;
+            }else{
+
+            }
+            
+            $user->save();
+
+            return response()->json($user, 201);
+            
+            
+        }else{
+            $filenameToStore = 'NoFile';
+
+            //update user
+
+            $user->name = $request->input('name');
+            // $user->title = $request->input('title');
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            // $user->status = $request->input('status');
+            $user->bio = $request->input('bio');
+            // $user->email = $request->input('email');
+            $user->phone_number_1 = $request->input('phone_number_1');
+            $user->phone_number_2 = $request->input('phone_number_2');
+            $user->date_of_birth = $request->input('date_of_birth');
+            $user->department = $request->input('department');
+            $user->school = $request->input('school');
+            $user->college = $request->input('college');
+            
+            $user->save();
+
+            return response()->json($user, 201);
+        }
+
     }
 }

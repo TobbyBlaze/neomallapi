@@ -18,13 +18,6 @@ class AuthController extends ResponseController
 
     use AuthenticatesUsers;
 
-    // protected $guard = 'seller';
-
-    // public function __construct()
-    // {
-    //   $this->middleware('guest:seller', ['except' => ['logout']]);
-    // }
-
     //create user
     public function signup(Request $request)
     {
@@ -74,8 +67,6 @@ class AuthController extends ResponseController
         }
         $user = $request->user();
         $success['token'] =  $user->createToken('token')->accessToken;
-        // $user->api_token = $success['token'];
-        // $user->save();
         return $this->sendResponse($success);
     }
 
@@ -115,70 +106,40 @@ class AuthController extends ResponseController
     public function seller_signup(Request $request)
     {
 
-        // $messages = [
-        //     "attachments.max" => "file can't be more than 3."
-        //  ];
-        // $this->validate($request, [
-        //     'store_pics.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
-        //     // 'store_pics' => 'max:2',
-        //     'business_reg_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-        //     // 'business_reg_doc' => 'max:2',
-        //     'vat_info_doc.*' => 'mimes:jpg,jpeg,bmp,png,pdf,docx,doc,txt,pptx,csv,xlsx,xls|max:20000',
-        //     // 'vat_info_doc' => 'max:2',
-        // ],$messages);
+        $messages = [
+            "attachments.max" => "file can't be more than 2."
+         ];
+        $this->validate($request, [
+            'image.*' => 'mimes:jpg,jpeg,bmp,png|max:20000',
+            'image' => 'max:2',
+        ],$messages);
 
-        // $validator = Validator::make($request->all(), [
-        //     // 'name' => ['string', 'max:20', 'min:2'],
-        //     // 'last_name' => ['string', 'max:20', 'min:2'],
-        //     'email' => ['required', 'string', 'email', 'max:40', 'unique:sellers'],
-        //     'password' => ['required'],
-        //     'confirm_password' => ['required', 'same:password'],
-        // ]);
+        $validator = Validator::make($request->all(), [
+            // 'name' => ['string', 'max:20', 'min:2'],
+            // 'last_name' => ['string', 'max:20', 'min:2'],
+            'email' => ['required', 'string', 'email', 'max:40', 'unique:sellers'],
+            'password' => ['required'],
+            'confirm_password' => ['required', 'same:password'],
+        ]);
 
-        // if($validator->fails()){
-        //     return $this->sendError($validator->errors());       
-        // }
-
-        if($request->hasFile('store_pics')){
-            // dd($request->file);
-            foreach ($request->file('store_pics') as $sin_store_pics){
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sin_store_pics->getClientOriginalName();
-                //
-                $sin_store_pics->move(public_path().'/file/', $filenameWithExt);
-                $store_pics_data[] = $filenameWithExt;
-                
-                $extension = $sin_store_pics->getClientOriginalExtension();
-            }
-        }
-        if($request->hasFile('business_reg_doc')){
-            foreach ($request->file('business_reg_doc') as $sin_business_reg_doc){
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sin_business_reg_doc->getClientOriginalName();
-                //
-                $sin_business_reg_doc->move(public_path().'/file/', $filenameWithExt);
-                $business_reg_doc_data[] = $filenameWithExt;
-                
-                $extension = $sin_business_reg_doc->getClientOriginalExtension();
-            }
-        }
-        if($request->hasFile('vat_info_doc')){
-            foreach ($request->file('vat_info_doc') as $sin_vat_info_doc){
-                // $filenameWithExt = $request->file('file')->getClientOriginalName();
-                $filenameWithExt = $sin_vat_info_doc->getClientOriginalName();
-                //
-                $sin_vat_info_doc->move(public_path().'/file/', $filenameWithExt);
-                $vat_info_doc_data[] = $filenameWithExt;
-                
-                $extension = $sin_vat_info_doc->getClientOriginalExtension();
-            }
+        if($validator->fails()){
+            return $this->sendError($validator->errors());       
         }
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        // $input['store_pics'] = json_encode($store_pics_data);
-        // $input['business_reg_doc'] = json_encode($business_reg_doc_data);
-        // $input['vat_info_doc'] = json_encode($vat_info_doc_data);
+
+        if($request->hasFile('image')){
+            foreach ($request->file('image') as $sinfile){
+                $filenameWithExt = $sinfile->getClientOriginalName();
+                $sinfile->move(public_path().'/file/', $filenameWithExt);
+                $data[] = $filenameWithExt;
+                $extension = $sinfile->getClientOriginalExtension();
+            }
+
+            $input['store_pics'] = json_encode($data);
+        }
+
         $seller = Seller::create($input);
         if($seller){
             $success['token'] =  $seller->createToken('token')->accessToken;
@@ -210,13 +171,9 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
 
-        // $seller = $request->seller();
-        // $user = $request->seller();
         $user = Auth::guard('seller')->user();
-        // $success['token'] =  $seller->createToken('token')->accessToken;
         $success['token'] =  $user->createToken('token')->accessToken;
-        // $user->api_token = $success['token'];
-        // $user->save();
+
         return $this->sendResponse($success);
     }
 
@@ -240,10 +197,8 @@ class AuthController extends ResponseController
     //getseller
     public function getSeller(Request $request)
     {
-        //$id = $request->user()->id;
-        // $seller = Auth::guard('seller')->user();
         $seller = $request->user();
-        // return $this->sendResponse($seller);
+        
         if($seller){
             return $this->sendResponse($seller);
         }
@@ -309,7 +264,6 @@ class AuthController extends ResponseController
     //logout admin
     public function admin_logout(Request $request)
     {
-        
         $isAdmin = $request->user()->token()->revoke();
         if($isAdmin){
             $success['message'] = "Successfully logged out.";
@@ -326,7 +280,6 @@ class AuthController extends ResponseController
     //getadmin
     public function getAdmin(Request $request)
     {
-        //$id = $request->user()->id;
         $admin = $request->user();
         if($admin){
             return $this->sendResponse($admin);

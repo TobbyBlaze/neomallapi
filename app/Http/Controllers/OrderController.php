@@ -5,16 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
-use lluminate\Database\Eloquent\Collection\visits;
-
 use App\Good;
 use App\Cart;
 use App\Review;
 use App\User;
 use App\Order;
 use App\OrderProduct;
-use App\Notifications\NewReview;
-use App\Notifications\NewCart;
 use Auth;
 use DB;
 
@@ -25,11 +21,7 @@ class OrderController extends Controller
         $this->middleware('auth');
         // $this->middleware('cors');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $user = User::find(auth::user()->id);
@@ -49,22 +41,6 @@ class OrderController extends Controller
         return response()->json($data,200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // $cart = Cart::find($id);
