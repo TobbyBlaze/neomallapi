@@ -30,9 +30,11 @@ return [
 
         Stevebauman\Location\Drivers\IpInfo::class,
 
+        Stevebauman\Location\Drivers\MaxMind::class,
+
         Stevebauman\Location\Drivers\GeoPlugin::class,
 
-        Stevebauman\Location\Drivers\MaxMind::class,
+        
 
     ],
 
