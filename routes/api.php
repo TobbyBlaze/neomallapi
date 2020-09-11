@@ -111,7 +111,8 @@ Route::get('stores', 'StoreController@index');
 Route::get('products/{id}', 'StoreController@show');
 
 //Search
-Route::any ( 'search', 'FindController@all');
+Route::any ( 'searchGoods', 'FindController@goods');
+Route::any ( 'searchSellers', 'FindController@sellers');
 
 
 Route::get('location', function () {
@@ -130,11 +131,11 @@ Route::get('location', function () {
     else if(isset($_SERVER['REMOTE_ADDR']))
         $ipaddress = $_SERVER['REMOTE_ADDR'];
     else
-        $ipaddress = 'UNKNOWN';
+        $ipaddress = request()->ip();
 
     // $ip = '50.90.0.1';
     // $ip = \Request::ip();
-    $ip = request()->ip();
+    // $ip = request()->ip();
     $data = \Location::get($ipaddress);
     // dd($data);
     return response()->json($data);
