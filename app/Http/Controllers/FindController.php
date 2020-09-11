@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Good;
 use App\Seller;
 use DB;
-use Illuminate\Support\Facades\Input;
+// use Illuminate\Support\Facades\Input;
 
 class FindController extends Controller
 {
     public function goods(){
-        $q = Input::get ( 'q' );
+        $q = Request::get ( 'q' );
         $goods = Good::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'description', 'LIKE', '%' . $q . '%' )->orWhere ( 'category', 'LIKE', '%' . $q . '%' )->paginate(20);
     
         $find_data = [
@@ -29,7 +29,7 @@ class FindController extends Controller
     }
 
     public function sellers(){
-        $q = Input::get ( 'q' );
+        $q = Request::get ( 'q' );
         $sellers = Seller::where ( 'name', 'LIKE', '%' . $q . '%' )->paginate(20);
 
         $find_data = [
