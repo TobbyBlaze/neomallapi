@@ -13,7 +13,7 @@ use DB;
 class FindController extends Controller
 {
     public function goods(){
-        $q = Request::get ( 'q' );
+        $q = $request->get ( 'q' );
         $goods = Good::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'description', 'LIKE', '%' . $q . '%' )->orWhere ( 'category', 'LIKE', '%' . $q . '%' )->paginate(20);
     
         $find_data = [
@@ -29,7 +29,7 @@ class FindController extends Controller
     }
 
     public function sellers(){
-        $q = Request::get ( 'q' );
+        $q = $request->get ( 'q' );
         $sellers = Seller::where ( 'name', 'LIKE', '%' . $q . '%' )->paginate(20);
 
         $find_data = [
