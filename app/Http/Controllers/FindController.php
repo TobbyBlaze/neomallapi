@@ -21,11 +21,12 @@ class FindController extends Controller
             'goods' => $goods,
         ];
 
-        if($q != null){
-            if (count($goods)>0){
-                return response()->json($find_data);
-            }
-        }
+        // if($q != null){
+        //     if (count($goods)>0){
+        //         return response()->json($find_data);
+        //     }
+        // }
+        return response()->json($find_data);
     }
 
     public function sellers(Request $request){
