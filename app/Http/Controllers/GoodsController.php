@@ -128,6 +128,7 @@ class GoodsController extends Controller
         $location = \Location::get($ipaddress);
 
         $agent = new \Agent();
+        $device = $agent->device();
         $browser = $agent->browser();
         $browserVersion = $agent->version($browser);
         $languages = $agent->languages();
@@ -141,8 +142,9 @@ class GoodsController extends Controller
             // 'users' => $users,
             'reviews' => $reviews,
             'location' => $location,
-            'browserDetails' => $browserDetails,
+            'device' => $device,
             'browser' => $browser,
+            'browserDetails' => $browserDetails,
             'browserVersion' => $browserVersion,
             'languages' => $languages,
             'platform' => $platform,
