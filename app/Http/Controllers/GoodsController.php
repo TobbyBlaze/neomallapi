@@ -92,6 +92,7 @@ class GoodsController extends Controller
     public function show($id)
     {
         $good = Good::find($id);
+        $seller = Seller::find($good->seller_id);
 
         // $user = User::find($id);
 
@@ -139,6 +140,7 @@ class GoodsController extends Controller
 
         $good_data = [
             'good' => $good,
+            'seller' => $seller,
             // 'goods' => $goods,
             // 'user' => '$user',
             // 'users' => $users,
