@@ -127,13 +127,15 @@ class GoodsController extends Controller
 
         $location = \Location::get($ipaddress);
 
-        $agent = new \Agent();
+        $agent = new Agent();
         $device = $agent->device();
         $browser = $agent->browser();
         $browserVersion = $agent->version($browser);
         $languages = $agent->languages();
         $platform = $agent->platform();
         $platformVersion = $agent->version($platform);
+        $ifRobot->isRobot();
+        $robot = $agent->robot();
 
         $good_data = [
             'good' => $good,
@@ -149,6 +151,8 @@ class GoodsController extends Controller
             'languages' => $languages,
             'platform' => $platform,
             'platformVersion' => $platformVersion,
+            'ifRobot' => $ifRobot,
+            'robot' => $robot,
         ];
 
         return response()->json($good_data);
