@@ -127,7 +127,7 @@ class GoodsController extends Controller
 
         $location = \Location::get($ipaddress);
 
-        $agent = new Agent();
+        $agent = new \Agent();
         $browser = $agent->browser();
         $browserVersion = $agent->version($browser);
         $languages = $agent->languages();
