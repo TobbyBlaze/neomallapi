@@ -126,6 +126,8 @@ class GoodsController extends Controller
 
         $location = \Location::get($ipaddress);
 
+        $browserDetails = get_browser($request->header('User-Agent'), true);
+
         $good_data = [
             'good' => $good,
             // 'goods' => $goods,
@@ -133,6 +135,7 @@ class GoodsController extends Controller
             // 'users' => $users,
             'reviews' => $reviews,
             'location' => $location,
+            'browserDetails' => $browserDetails,
         ];
 
         return response()->json($good_data);
