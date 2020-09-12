@@ -11,6 +11,7 @@ use App\User;
 use App\Seller;
 use Auth;
 use DB;
+use Stevebauman\Location\Facades\Location;
 
 class GoodsController extends Controller
 {
@@ -93,7 +94,7 @@ class GoodsController extends Controller
 
         // $user = User::find($id);
 
-        $goods = Good::all();
+        // $goods = Good::all();
 
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
         ->paginate(20);
@@ -107,12 +108,31 @@ class GoodsController extends Controller
             'updated_at' => \DB::raw('updated_at')   
         ]);
 
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = request()->ip();
+
+        $location = \Location::get($ipaddress);
+
         $good_data = [
             'good' => $good,
             'goods' => $goods,
             // 'user' => '$user',
             // 'users' => $users,
             'reviews' => $reviews,
+            'location' => $location,
         ];
 
         return response()->json($good_data);
