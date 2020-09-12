@@ -8,6 +8,7 @@ use App\Seller;
 use App\Admin;
 use App\Good;
 use App\Cart;
+use App\Wish;
 use App\Review;
 use Illuminate\Support\Facades\Input;
 

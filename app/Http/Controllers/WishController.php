@@ -12,7 +12,7 @@ use App\User;
 use Auth;
 use DB;
 
-class wishesController extends Controller
+class wishController extends Controller
 {
     public function index()
     {
