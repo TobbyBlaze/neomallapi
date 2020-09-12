@@ -128,7 +128,7 @@ class GoodsController extends Controller
 
         $good_data = [
             'good' => $good,
-            'goods' => $goods,
+            // 'goods' => $goods,
             // 'user' => '$user',
             // 'users' => $users,
             'reviews' => $reviews,
