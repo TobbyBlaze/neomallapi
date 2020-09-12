@@ -134,7 +134,7 @@ class GoodsController extends Controller
         $languages = $agent->languages();
         $platform = $agent->platform();
         $platformVersion = $agent->version($platform);
-        $ifRobot->isRobot();
+        $ifRobot = $agent->isRobot();
         $robot = $agent->robot();
 
         $good_data = [
