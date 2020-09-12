@@ -88,7 +88,7 @@ class GoodsController extends Controller
 
     }
 
-    public function show($id, Request $request)
+    public function show($id)
     {
         $good = Good::find($id);
 
@@ -126,7 +126,12 @@ class GoodsController extends Controller
 
         $location = \Location::get($ipaddress);
 
-        $browserDetails = get_browser($request->header('User-Agent'), true);
+        $agent = new Agent();
+        $browser = $agent->browser();
+        $browserVersion = $agent->version($browser);
+        $languages = $agent->languages();
+        $platform = $agent->platform();
+        $platformVersion = $agent->version($platform);
 
         $good_data = [
             'good' => $good,
@@ -136,6 +141,11 @@ class GoodsController extends Controller
             'reviews' => $reviews,
             'location' => $location,
             'browserDetails' => $browserDetails,
+            'browser' => $browser,
+            'browserVersion' => $browserVersion,
+            'languages' => $languages,
+            'platform' => $platform,
+            'platformVersion' => $platformVersion,
         ];
 
         return response()->json($good_data);
