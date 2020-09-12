@@ -12,7 +12,7 @@ use App\Seller;
 use Auth;
 use DB;
 use Stevebauman\Location\Facades\Location;
-use Jenssegers\Agent\Facades\Agent;
+use Agent;
 
 class GoodsController extends Controller
 {
