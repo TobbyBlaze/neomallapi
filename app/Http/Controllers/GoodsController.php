@@ -146,7 +146,6 @@ class GoodsController extends Controller
             'location' => $location,
             'device' => $device,
             'browser' => $browser,
-            'browserDetails' => $browserDetails,
             'browserVersion' => $browserVersion,
             'languages' => $languages,
             'platform' => $platform,
