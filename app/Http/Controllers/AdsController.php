@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 use App\Ads;
+// use App\viewAds;
 use App\User;
 use App\Notifications\NewCart;
 use App\Notifications\NewReview;
 use Auth;
 use DB;
+use Stevebauman\Location\Facades\Location;
+use Jenssegers\Agent\Agent;
 
 class AdsController extends Controller
 {
@@ -64,6 +67,9 @@ class AdsController extends Controller
             $ad->category = $request->input('category');
             $ad->quantity = $request->input('quantity');
             $ad->seller_id = Auth::user()->id;
+            // $ad->seller_name = $user->name;
+            // $ad->countryName = $user->countryName;
+            // $ad->cityName = $user->cityName;
             $ad->image = json_encode($data);
 
             $ad->save();
@@ -81,6 +87,9 @@ class AdsController extends Controller
             $ad->category = $request->input('category');
             $ad->quantity = $request->input('quantity');
             $ad->seller_id = Auth::user()->id;
+            // $ad->seller_name = $user->name;
+            // $ad->countryName = $user->countryName;
+            // $ad->cityName = $user->cityName;
             
             $ad->save();
 

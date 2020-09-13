@@ -65,6 +65,9 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
+            // $good->seller_name = $user->name;
+            // $good->countryName = $user->countryName;
+            // $good->cityName = $user->cityName;
             $good->image = json_encode($data);
 
             $good->save();
@@ -82,6 +85,9 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
+            // $good->seller_name = $user->name;
+            // $good->countryName = $user->countryName;
+            // $good->cityName = $user->cityName;
             
             $good->save();
 
@@ -210,6 +216,9 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
+            // $good->seller_name = $user->name;
+            // $good->countryName = $user->countryName;
+            // $good->cityName = $user->cityName;
             $good->image = json_encode($data);
 
             $good->save();
@@ -226,6 +235,9 @@ class GoodsController extends Controller
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
+            // $good->seller_name = $user->name;
+            // $good->countryName = $user->countryName;
+            // $good->cityName = $user->cityName;
             
             $good->save();
 

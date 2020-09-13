@@ -38,7 +38,6 @@ class StoreController extends Controller
         ->paginate(20);
 
         $data = [
-
             'seller' => $seller,
             'storeGoods'=>$storeGoods,
             'reviews' => $reviews,
