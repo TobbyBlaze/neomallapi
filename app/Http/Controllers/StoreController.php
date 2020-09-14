@@ -17,7 +17,8 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $sellers = Seller::paginate(2);
+        $sellers = Seller::orderBy('sellers.updated_at', 'desc')
+        ->paginate(2);
 
         $data = [
             'sellers' => $sellers,
