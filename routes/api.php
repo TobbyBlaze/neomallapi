@@ -81,6 +81,9 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::any('adsUpdate/{id}', 'AdsController@update');
         Route::any('adsDelete/{id}', 'AdsController@destroy');
 
+        //Checkout
+        Route::post('/charge', 'CheckoutController@charge');
+
     });
 
     //Seller
