@@ -16,7 +16,7 @@ class CheckoutController extends Controller
 
         try {
             // Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-            Stripe::setApiKey(sk_test_51FyXZOIfMsn8pOBN2CZG6KzUcUgWlySQBGLW8rP9x7ZL5P32nIyuoPfSG3VPDDqylbhmFYGIF0tuV5whXP7nGeUS00lHF870xd);
+            Stripe::setApiKey('sk_test_51FyXZOIfMsn8pOBN2CZG6KzUcUgWlySQBGLW8rP9x7ZL5P32nIyuoPfSG3VPDDqylbhmFYGIF0tuV5whXP7nGeUS00lHF870xd');
         
             $customer = Customer::create(array(
                 'email' => $request->stripeEmail,
