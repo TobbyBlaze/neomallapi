@@ -26,7 +26,7 @@ class CheckoutController extends Controller
         
             $charge = Charge::create(array(
                 // 'customer' => $request->card->id,
-                'customer' => 1,
+                'customer' => $customer->id,
                 'amount' => 1999,
                 'currency' => 'usd'
             ));
