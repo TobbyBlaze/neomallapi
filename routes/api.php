@@ -118,6 +118,9 @@ Route::get('products/{id}', 'StoreController@show');
 Route::any ( 'searchGoods', 'FindController@goods');
 Route::any ( 'searchSellers', 'FindController@sellers');
 
+//Checkout test
+Route::post('/charge', 'CheckoutController@charge');
+
 
 Route::get('location', function () {
 
