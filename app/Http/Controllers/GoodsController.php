@@ -175,6 +175,7 @@ class GoodsController extends Controller
         $viewGood->save();
 
         $good_data = [
+            'viewGood' => $viewGood,
             'good' => $good,
             'seller' => $seller,
             'reviews' => $reviews,
