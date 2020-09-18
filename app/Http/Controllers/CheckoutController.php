@@ -10,6 +10,7 @@ use Stripe\Charge;
 
 use App\User;
 use App\Order;
+use App\Cart;
 use Auth;
 use DB;
 
