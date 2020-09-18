@@ -101,7 +101,7 @@ class GoodsController extends Controller
         $good = Good::find($id);
         $seller = Seller::find($good->seller_id);
 
-        if(Auth::user()){
+        if(Auth::check()){
             $user = Auth::user();
         }
         
@@ -149,7 +149,7 @@ class GoodsController extends Controller
         $robot = $agent->robot();
 
         $viewGood = new viewGoods;
-        if(Auth::user()){
+        if(Auth::check()){
             $viewGood->userId = $user->id;
             $viewGood->userName = $user->name;
         }
