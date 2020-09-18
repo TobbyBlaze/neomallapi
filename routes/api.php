@@ -145,6 +145,6 @@ Route::get('location', function () {
     // $ip = request()->ip();
     $data = \Location::get($ipaddress);
     // dd($data);
-    return response()->json($data);
+    return response()->json($data->cityName);
    
 });
