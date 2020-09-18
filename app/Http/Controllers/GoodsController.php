@@ -148,31 +148,31 @@ class GoodsController extends Controller
         $ifRobot = $agent->isRobot();
         $robot = $agent->robot();
 
-        // $viewGood = new viewGoods;
-        // if(Auth::user()){
-        //     $viewGood->userId = $user->id;
-        //     $viewGood->userName = $user->name;
-        // }
-        // $viewGood->sellerId = $seller->id;
-        // $viewGood->sellerName = $seller->name;
-        // $viewGood->goodId = $good->id;
-        // $viewGood->goodName = $good->name;
-        // $viewGood->goodViews = $good->views;
-        // $viewGood->cityName = $location->cityName;
-        // $viewGood->countryCode = $location->countryCode;
-        // $viewGood->countryName = $location->countryName;
-        // $viewGood->ip = $location->ip;
-        // $viewGood->device = $device;
-        // $viewGood->browser = $browser;
-        // $viewGood->browserVersion = $browserVersion;
-        // $viewGood->languages = $languages;
-        // $viewGood->platform = $platform;
-        // $viewGood->platformVersion = $platformVersion;
-        // if($ifRobot){
-        //     $viewGood->robot = $robot;
-        // }
+        $viewGood = new viewGoods;
+        if(Auth::user()){
+            $viewGood->userId = $user->id;
+            $viewGood->userName = $user->name;
+        }
+        $viewGood->sellerId = $seller->id;
+        $viewGood->sellerName = $seller->name;
+        $viewGood->goodId = $good->id;
+        $viewGood->goodName = $good->name;
+        $viewGood->goodViews = $good->views;
+        $viewGood->cityName = $location->cityName;
+        $viewGood->countryCode = $location->countryCode;
+        $viewGood->countryName = $location->countryName;
+        $viewGood->ip = $location->ip;
+        $viewGood->device = $device;
+        $viewGood->browser = $browser;
+        $viewGood->browserVersion = $browserVersion;
+        $viewGood->languages = $languages;
+        $viewGood->platform = $platform;
+        $viewGood->platformVersion = $platformVersion;
+        if($ifRobot){
+            $viewGood->robot = $robot;
+        }
 
-        // $viewGood->save();
+        $viewGood->save();
 
         $good_data = [
             'good' => $good,

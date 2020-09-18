@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 use App\Ads;
-// use App\viewAds;
+use App\viewAds;
 use App\User;
 use App\Notifications\NewCart;
 use App\Notifications\NewReview;
@@ -98,7 +98,7 @@ class AdsController extends Controller
 
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $ad = Ads::find($id);
 
@@ -118,12 +118,75 @@ class AdsController extends Controller
             'updated_at' => \DB::raw('updated_at')   
         ]);
 
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = request()->ip();
+
+        $location = \Location::get($ipaddress);
+
+        $agent = new Agent();
+        $device = $agent->device();
+        $browser = $agent->browser();
+        $browserVersion = $agent->version($browser);
+        $languages = $agent->languages();
+        $platform = $agent->platform();
+        $platformVersion = $agent->version($platform);
+        $ifRobot = $agent->isRobot();
+        $robot = $agent->robot();
+
+        $viewAd = new viewAds;
+        if(Auth::user()){
+            $viewAd->userId = $user->id;
+            $viewAd->userName = $user->name;
+        }
+        $viewAd->sellerId = $ad->user_id;
+        // $viewGood->sellerName = $ad->name;
+        $viewGood->goodId = $good->id;
+        $viewGood->goodName = $good->name;
+        $viewGood->goodViews = $good->views;
+        $viewGood->cityName = $location->cityName;
+        $viewGood->countryCode = $location->countryCode;
+        $viewGood->countryName = $location->countryName;
+        $viewGood->ip = $location->ip;
+        $viewGood->device = $device;
+        $viewGood->browser = $browser;
+        $viewGood->browserVersion = $browserVersion;
+        $viewGood->languages = $languages;
+        $viewGood->platform = $platform;
+        $viewGood->platformVersion = $platformVersion;
+        if($ifRobot){
+            $viewGood->robot = $robot;
+        }
+
+        $viewGood->save();
+
         $ads_data = [
             'ad' => $ad,
             'ads' => $ads,
-            // 'user' => '$user',
+            'user' => '$user',
             // 'users' => $users,
-            'reviews' => $reviews,
+            // 'reviews' => $reviews,
+            'location' => $location,
+            'device' => $device,
+            'browser' => $browser,
+            'browserVersion' => $browserVersion,
+            'languages' => $languages,
+            'platform' => $platform,
+            'platformVersion' => $platformVersion,
+            'ifRobot' => $ifRobot,
+            'robot' => $robot,
         ];
 
         return response()->json($ads_data);
