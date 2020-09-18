@@ -30,6 +30,8 @@ class CreateOrdersTable extends Migration
             $table->string('zip')->nullable();
             $table->string('phone');
             $table->string('email')->nullable();
+            $table->string('goodsName')->nullable();
+            $table->string('goodsQuantity')->nullable();
             $table->bigInteger('subtotal')->nullable();
             $table->bigInteger('total')->nullable();
 

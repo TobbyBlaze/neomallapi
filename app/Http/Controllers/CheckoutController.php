@@ -37,11 +37,14 @@ class CheckoutController extends Controller
                 'currency' => 'usd'
             ));
 
-            $data = [
-                'user' => $user,
-                'customer'=>$customer,
-                'charge'=>$charge,
-            ];
+            $carts = Cart::orderBy('carts.updated_at', 'desc')
+            ->where('carts.user_id', $user->id)
+            ->get();
+
+            foreach ($carts as $cart){
+                $goodName[] = $cart->name;
+                $goodQuantity[] = $cart->quantity;
+            }
 
             $order = new Order;
         
@@ -56,8 +59,18 @@ class CheckoutController extends Controller
             $order->zip = $request->input('zip');
             $order->phone = $request->input('phone');
             $order->email = $request->input('email');
+            $order->goodsName = json_encode($goodName);
+            $order->goodsQuantity = json_encode($goodQuantity);
 
             $order->save();
+
+            $data = [
+                'user' => $user,
+                'customer'=>$customer,
+                'charge'=>$charge,
+                'order' => $order,
+            ];
+
         
             return response()->json($data,200);
         } catch (\Exception $ex) {
