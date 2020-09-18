@@ -48,7 +48,7 @@ Route::group([ 'prefix' => 'auth'], function (){
     
         //Goods
         Route::get('stores', 'StoreController@index');
-        Route::get('products/{id}', 'StoreController@show');
+        Route::post('products/{id}', 'StoreController@show');
         Route::resource('show', 'GoodsController');
 
         //Reviews
