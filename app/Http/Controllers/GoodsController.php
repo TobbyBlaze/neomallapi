@@ -189,7 +189,7 @@ class GoodsController extends Controller
             'robot' => $robot,
         ];
 
-        return response()->json($good_data, 201);
+        return response()->json($good_data, 200);
     }
 
     public function update(Request $request, $id)
