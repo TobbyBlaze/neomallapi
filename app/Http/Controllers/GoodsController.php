@@ -120,77 +120,77 @@ class GoodsController extends Controller
             'updated_at' => \DB::raw('updated_at')   
         ]);
 
-        // $ipaddress = '';
-        // if (isset($_SERVER['HTTP_CLIENT_IP']))
-        //     $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        // else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        //     $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        // else if(isset($_SERVER['HTTP_X_FORWARDED']))
-        //     $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        // else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-        //     $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        // else if(isset($_SERVER['HTTP_FORWARDED']))
-        //     $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        // else if(isset($_SERVER['REMOTE_ADDR']))
-        //     $ipaddress = $_SERVER['REMOTE_ADDR'];
-        // else
-        //     $ipaddress = '';
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = '';
 
-        // $location = \Location::get($ipaddress);
+        $location = \Location::get($ipaddress);
 
-        // $agent = new Agent();
-        // $device = $agent->device();
-        // $browser = $agent->browser();
-        // $browserVersion = $agent->version($browser);
-        // $languages = $agent->languages();
-        // $platform = $agent->platform();
-        // $platformVersion = $agent->version($platform);
-        // $ifRobot = $agent->isRobot();
-        // $robot = $agent->robot();
+        $agent = new Agent();
+        $device = $agent->device();
+        $browser = $agent->browser();
+        $browserVersion = $agent->version($browser);
+        $languages = $agent->languages();
+        $platform = $agent->platform();
+        $platformVersion = $agent->version($platform);
+        $ifRobot = $agent->isRobot();
+        $robot = $agent->robot();
 
-        // $viewGood = new viewGoods;
-        // if(Auth::user()){
-        //     $viewGood->userId = $user->id;
-        //     $viewGood->userName = $user->name;
-        // }
-        // $viewGood->sellerId = $seller->id;
-        // $viewGood->sellerName = $seller->name;
-        // $viewGood->goodId = $good->id;
-        // $viewGood->goodName = $good->name;
-        // $viewGood->goodViews = $good->views;
-        // $viewGood->cityName = $location->cityName;
-        // $viewGood->countryCode = $location->countryCode;
-        // $viewGood->countryName = $location->countryName;
-        // $viewGood->ip = $location->ip;
-        // $viewGood->device = $device;
-        // $viewGood->browser = $browser;
-        // $viewGood->browserVersion = $browserVersion;
-        // // $viewGood->languages = json_encode($languages);
-        // $viewGood->platform = $platform;
-        // $viewGood->platformVersion = $platformVersion;
-        // if($ifRobot){
-        //     $viewGood->robot = $robot;
-        // }
+        $viewGood = new viewGoods;
+        if(Auth::user()){
+            $viewGood->userId = $user->id;
+            $viewGood->userName = $user->name;
+        }
+        $viewGood->sellerId = $seller->id;
+        $viewGood->sellerName = $seller->name;
+        $viewGood->goodId = $good->id;
+        $viewGood->goodName = $good->name;
+        $viewGood->goodViews = $good->views;
+        $viewGood->cityName = $location->cityName;
+        $viewGood->countryCode = $location->countryCode;
+        $viewGood->countryName = $location->countryName;
+        $viewGood->ip = $location->ip;
+        $viewGood->device = $device;
+        $viewGood->browser = $browser;
+        $viewGood->browserVersion = $browserVersion;
+        // $viewGood->languages = json_encode($languages);
+        $viewGood->platform = $platform;
+        $viewGood->platformVersion = $platformVersion;
+        if($ifRobot){
+            $viewGood->robot = $robot;
+        }
 
-        // $viewGood->save();
+        $viewGood->save();
 
         $good_data = [
             // 'viewGood' => $viewGood,
             'good' => $good,
             'seller' => $seller,
             'reviews' => $reviews,
-            // 'location' => $location,
-            // 'device' => $device,
-            // 'browser' => $browser,
-            // 'browserVersion' => $browserVersion,
-            // 'languages' => $languages,
-            // 'platform' => $platform,
-            // 'platformVersion' => $platformVersion,
-            // 'ifRobot' => $ifRobot,
-            // 'robot' => $robot,
+            'location' => $location,
+            'device' => $device,
+            'browser' => $browser,
+            'browserVersion' => $browserVersion,
+            'languages' => $languages,
+            'platform' => $platform,
+            'platformVersion' => $platformVersion,
+            'ifRobot' => $ifRobot,
+            'robot' => $robot,
         ];
 
-        return response()->json($good_data);
+        return response()->json($good_data, 201);
     }
 
     public function update(Request $request, $id)
