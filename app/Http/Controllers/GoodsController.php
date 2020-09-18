@@ -165,7 +165,7 @@ class GoodsController extends Controller
         $viewGood->device = $device;
         $viewGood->browser = $browser;
         $viewGood->browserVersion = $browserVersion;
-        $viewGood->languages = json_encode($languages);
+        // $viewGood->languages = json_encode($languages);
         $viewGood->platform = $platform;
         $viewGood->platformVersion = $platformVersion;
         if($ifRobot){
