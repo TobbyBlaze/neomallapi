@@ -101,7 +101,7 @@ class GoodsController extends Controller
         $good = Good::find($id);
         $seller = Seller::find($good->seller_id);
 
-        if(Auth::user() != null){
+        if(Auth::user()->id != null){
             $user = Auth::user();
         }
         
