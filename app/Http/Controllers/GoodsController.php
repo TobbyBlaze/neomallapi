@@ -102,7 +102,7 @@ class GoodsController extends Controller
         $seller = Seller::find($good->seller_id);
 
         // if(Auth::user()->id != null){
-            $user = Auth::user() || null;
+            // $user = Auth::user() || null;
         // }
         
 
@@ -150,8 +150,8 @@ class GoodsController extends Controller
 
         $viewGood = new viewGoods;
         // if($user != null){
-            $viewGood->userId = $user->id;
-            $viewGood->userName = $user->name;
+            // $viewGood->userId = $user->id;
+            // $viewGood->userName = $user->name;
         // }
         $viewGood->sellerId = $seller->id;
         $viewGood->sellerName = $seller->name;
@@ -176,8 +176,8 @@ class GoodsController extends Controller
         $viewGood->save();
 
         $good_data = [
-            'viewGood' => $viewGood,
-            'user' => $user,
+            // 'viewGood' => $viewGood,
+            // 'user' => $user,
             'good' => $good,
             'seller' => $seller,
             'reviews' => $reviews,
