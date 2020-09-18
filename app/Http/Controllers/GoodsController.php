@@ -134,7 +134,7 @@ class GoodsController extends Controller
         else if(isset($_SERVER['REMOTE_ADDR']))
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         else
-            $ipaddress = request()->ip();
+            $ipaddress = '';
 
         $location = \Location::get($ipaddress);
 
@@ -168,9 +168,9 @@ class GoodsController extends Controller
         $viewGood->languages = $languages;
         $viewGood->platform = $platform;
         $viewGood->platformVersion = $platformVersion;
-        // if($ifRobot){
-        //     $viewGood->robot = $robot;
-        // }
+        if($ifRobot){
+            $viewGood->robot = $robot;
+        }
 
         $viewGood->save();
 
