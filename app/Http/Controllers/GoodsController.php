@@ -96,7 +96,7 @@ class GoodsController extends Controller
 
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $good = Good::find($id);
         $seller = Seller::find($good->seller_id);
@@ -104,7 +104,7 @@ class GoodsController extends Controller
         // if(Auth::user()->id != null){
             // $user = Auth::user() || null;
         // }
-        
+        $user = $request->user();
 
         // $goods = Good::all();
 
@@ -149,10 +149,10 @@ class GoodsController extends Controller
         $robot = $agent->robot();
 
         $viewGood = new viewGoods;
-        // if($user != null){
-            // $viewGood->userId = $user->id;
-            // $viewGood->userName = $user->name;
-        // }
+        if($user){
+            $viewGood->userId = $user->id;
+            $viewGood->userName = $user->name;
+        }
         $viewGood->sellerId = $seller->id;
         $viewGood->sellerName = $seller->name;
         $viewGood->goodId = $good->id;
