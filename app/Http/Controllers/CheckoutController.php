@@ -50,16 +50,26 @@ class CheckoutController extends Controller
             $order = new Order;
         
             $order->user_id = $user->id;
-            $order->first_name = $request->input('first_name');
-            $order->last_name = $request->input('last_name');
-            $order->country = $request->input('country');
-            $order->address1 = $request->input('address1');
-            $order->address2 = $request->input('address2');
-            $order->city = $request->input('city');
-            $order->state = $request->input('state');
-            $order->zip = $request->input('zip');
-            $order->phone = $request->input('phone');
-            $order->email = $request->input('email');
+            // $order->first_name = $request->input('first_name');
+            // $order->last_name = $request->input('last_name');
+            // $order->country = $request->input('country');
+            // $order->address1 = $request->input('address1');
+            // $order->address2 = $request->input('address2');
+            // $order->city = $request->input('city');
+            // $order->state = $request->input('state');
+            // $order->zip = $request->input('zip');
+            // $order->phone = $request->input('phone');
+            // $order->email = $request->input('email');
+            $order->first_name = $user->name;
+            $order->last_name = $user->last_name;
+            $order->country = $user->country;
+            $order->address1 = $user->address1;
+            $order->address2 = $user->address2;
+            $order->city = $user->city;
+            $order->state = $user->state;
+            $order->zip = $user->zip;
+            $order->phone = $user->phone;
+            $order->email = $user->email;
             $order->goodsName = json_encode($goodName);
             $order->goodsQuantity = json_encode($goodQuantity);
 
