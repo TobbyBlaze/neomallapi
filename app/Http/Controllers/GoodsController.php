@@ -149,7 +149,7 @@ class GoodsController extends Controller
         $robot = $agent->robot();
 
         $viewGood = new viewGoods;
-        if($user){
+        if($user != null){
             $viewGood->userId = $user->id;
             $viewGood->userName = $user->name;
         }
