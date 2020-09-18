@@ -120,33 +120,33 @@ class GoodsController extends Controller
             'updated_at' => \DB::raw('updated_at')   
         ]);
 
-        $ipaddress = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        else if(isset($_SERVER['REMOTE_ADDR']))
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-        else
-            $ipaddress = '';
+        // $ipaddress = '';
+        // if (isset($_SERVER['HTTP_CLIENT_IP']))
+        //     $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        // else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        //     $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        // else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        //     $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        // else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        //     $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        // else if(isset($_SERVER['HTTP_FORWARDED']))
+        //     $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        // else if(isset($_SERVER['REMOTE_ADDR']))
+        //     $ipaddress = $_SERVER['REMOTE_ADDR'];
+        // else
+        //     $ipaddress = '';
 
-        $location = \Location::get($ipaddress);
+        // $location = \Location::get($ipaddress);
 
-        $agent = new Agent();
-        $device = $agent->device();
-        $browser = $agent->browser();
-        $browserVersion = $agent->version($browser);
-        $languages = $agent->languages();
-        $platform = $agent->platform();
-        $platformVersion = $agent->version($platform);
-        $ifRobot = $agent->isRobot();
-        $robot = $agent->robot();
+        // $agent = new Agent();
+        // $device = $agent->device();
+        // $browser = $agent->browser();
+        // $browserVersion = $agent->version($browser);
+        // $languages = $agent->languages();
+        // $platform = $agent->platform();
+        // $platformVersion = $agent->version($platform);
+        // $ifRobot = $agent->isRobot();
+        // $robot = $agent->robot();
 
         // $viewGood = new viewGoods;
         // if(Auth::user()){
@@ -179,15 +179,15 @@ class GoodsController extends Controller
             'good' => $good,
             'seller' => $seller,
             'reviews' => $reviews,
-            'location' => $location,
-            'device' => $device,
-            'browser' => $browser,
-            'browserVersion' => $browserVersion,
-            'languages' => $languages,
-            'platform' => $platform,
-            'platformVersion' => $platformVersion,
-            'ifRobot' => $ifRobot,
-            'robot' => $robot,
+            // 'location' => $location,
+            // 'device' => $device,
+            // 'browser' => $browser,
+            // 'browserVersion' => $browserVersion,
+            // 'languages' => $languages,
+            // 'platform' => $platform,
+            // 'platformVersion' => $platformVersion,
+            // 'ifRobot' => $ifRobot,
+            // 'robot' => $robot,
         ];
 
         return response()->json($good_data);
