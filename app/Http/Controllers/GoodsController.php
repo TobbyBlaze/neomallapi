@@ -158,19 +158,19 @@ class GoodsController extends Controller
         $viewGood->goodId = $good->id;
         $viewGood->goodName = $good->name;
         $viewGood->goodViews = $good->views;
-        // $viewGood->cityName = $location->cityName;
-        // $viewGood->countryCode = $location->countryCode;
-        // $viewGood->countryName = $location->countryName;
-        // $viewGood->ip = $location->ip;
+        $viewGood->cityName = $location->cityName;
+        $viewGood->countryCode = $location->countryCode;
+        $viewGood->countryName = $location->countryName;
+        $viewGood->ip = $location->ip;
         $viewGood->device = $device;
         $viewGood->browser = $browser;
         $viewGood->browserVersion = $browserVersion;
         $viewGood->languages = $languages;
         $viewGood->platform = $platform;
         $viewGood->platformVersion = $platformVersion;
-        if($ifRobot){
-            $viewGood->robot = $robot;
-        }
+        // if($ifRobot){
+        //     $viewGood->robot = $robot;
+        // }
 
         $viewGood->save();
 
