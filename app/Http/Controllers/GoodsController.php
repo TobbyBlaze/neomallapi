@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 use App\Good;
-// use App\viewGoods;
+use App\viewGoods;
 use App\Review;
 use App\User;
 use App\Seller;
