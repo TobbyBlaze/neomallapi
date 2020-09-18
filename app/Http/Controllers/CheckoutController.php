@@ -19,7 +19,7 @@ class CheckoutController extends Controller
     public function charge(Request $request)
     {
         // dd($request->all());
-        $user = Auth::user();
+        $user = $request->user();
 
         try {
             // Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
