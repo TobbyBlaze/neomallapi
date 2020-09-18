@@ -22,6 +22,7 @@ class CreateViewGoodsTable extends Migration
             $table->bigInteger('goodId')->nullable();
             $table->string('goodName')->nullable();
             $table->bigInteger('goodViews')->nullable();
+            $table->string('goodCategory')->nullable();
             $table->string('cityName')->nullable();
             $table->string('countryCode')->nullable();
             $table->string('countryName')->nullable();

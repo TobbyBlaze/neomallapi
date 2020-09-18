@@ -158,6 +158,7 @@ class GoodsController extends Controller
         $viewGood->goodId = $good->id;
         $viewGood->goodName = $good->name;
         $viewGood->goodViews = $good->views;
+        // $viewGood->goodCategory = $good->category;
         $viewGood->cityName = $location->cityName;
         $viewGood->countryCode = $location->countryCode;
         $viewGood->countryName = $location->countryName;
@@ -165,7 +166,7 @@ class GoodsController extends Controller
         $viewGood->device = $device;
         $viewGood->browser = $browser;
         $viewGood->browserVersion = $browserVersion;
-        // $viewGood->languages = json_encode($languages);
+        $viewGood->languages = json_encode($languages);
         $viewGood->platform = $platform;
         $viewGood->platformVersion = $platformVersion;
         if($ifRobot){
@@ -175,7 +176,8 @@ class GoodsController extends Controller
         $viewGood->save();
 
         $good_data = [
-            // 'viewGood' => $viewGood,
+            'viewGood' => $viewGood,
+            'user' => $user,
             'good' => $good,
             'seller' => $seller,
             'reviews' => $reviews,
