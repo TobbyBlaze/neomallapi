@@ -44,7 +44,7 @@ Route::group([ 'prefix' => 'auth'], function (){
     
         Route::get('getuser', 'API\AuthController@getUser');
         Route::get('profile', 'UserController@index');
-        Route::get('updateUser', 'UserController@updateUser');
+        Route::post('updateUser', 'UserController@updateUser');
     
         //Goods
         Route::get('stores', 'StoreController@index');

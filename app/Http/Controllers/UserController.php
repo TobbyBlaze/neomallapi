@@ -30,32 +30,37 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
 
-        $user = Auth::user();
+        $user = $request->user();
+        $password = $user->password;
 
         $user->name = $request->input('name');
-        // $user->title = $request->input('title');
-        $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
-        // $user->status = $request->input('status');
-        $user->bio = $request->input('bio');
-        // $user->email = $request->input('email');
-        $user->phone_number_1 = $request->input('phone_number_1');
-        $user->phone_number_2 = $request->input('phone_number_2');
-        $user->date_of_birth = $request->input('date_of_birth');
-        $user->department = $request->input('department');
-        $user->school = $request->input('school');
-        $user->college = $request->input('college');
+        $user->email = $request->input('email');
+        $user->city = $request->input('city');
+        $user->country = $request->input('country');
+        $user->street = $request->input('street');
+        $user->zip = $request->input('zip');
+        $user->phone1 = $request->input('phone1');
+        $user->phone2 = $request->input('phone2');
+        $user->address1 = $request->input('address1');
+        $user->address2 = $request->input('address2');;
+        $user->password = bcrypt($request->input('password'));
         
-        $user->save();
-
-        return response()->json($user, 201);
-
+        if($user->password == $password){
+            $user->save();
+            return response()->json($user, 201);
+        }else{
+            $error = 'User account could not be updated';
+            return response()->json($error, 201);
+        }
+      
     }
 
     public function updateSeller(Request $request)
     {
 
-        $user = Seller::find(Auth::user()->id);
+        // $user = Seller::find(Auth::user()->id);
+        $user = $request->user();
 
         $this->validate($request, [
             'file.*' => 'mimes:jpg,jpeg,png,gif',
