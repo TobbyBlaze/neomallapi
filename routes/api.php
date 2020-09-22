@@ -81,6 +81,13 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::any('adsUpdate/{id}', 'AdsController@update');
         Route::any('adsDelete/{id}', 'AdsController@destroy');
 
+        //Reset password
+        // Route::group(['prefix' => 'password'], function () {    
+        //     Route::post('create', 'PasswordResetController@create');
+        //     Route::get('find/{token}', 'PasswordResetController@find');
+        //     Route::post('reset', 'PasswordResetController@reset');
+        // });
+
         //Checkout
         Route::post('/charge', 'CheckoutController@charge');
 
@@ -108,9 +115,33 @@ Route::group([ 'prefix' => 'auth'], function (){
 
 });
 
+//User Reset password
+Route::group([    
+    'namespace' => 'Auth',    
+    'middleware' => 'api',    
+    'prefix' => 'password'
+], function () {    
+    Route::post('create', 'PasswordResetController@create');
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
+});
+
+//Seller Reset password
+Route::group([    
+    'namespace' => 'Auth',    
+    'middleware' => 'api',    
+    'prefix' => 'password'
+], function () {    
+    Route::post('create', 'SellerPasswordResetController@create');
+    Route::get('find/{token}', 'SellerPasswordResetController@find');
+    Route::post('reset', 'SellerPasswordResetController@reset');
+});
+
+//Goods
 Route::get('/', 'GoodsController@index');
 Route::get('prdetails/{id}', 'GoodsController@show');
 
+//Stores
 Route::get('stores', 'StoreController@index');
 Route::get('products/{id}', 'StoreController@show');
 
