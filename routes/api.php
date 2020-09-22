@@ -137,6 +137,35 @@ Route::group([
     Route::post('reset', 'SellerPasswordResetController@reset');
 });
 
+//Admin Reset password
+Route::group([    
+    'namespace' => 'Auth',    
+    'middleware' => 'api',    
+    'prefix' => 'password'
+], function () {    
+    Route::post('create', 'AdminPasswordResetController@create');
+    Route::get('find/{token}', 'AdminPasswordResetController@find');
+    Route::post('reset', 'AdminPasswordResetController@reset');
+});
+
+// Account activation
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    // Route::post('login', 'AuthController@login');
+    // Route::post('signup', 'AuthController@signup');
+    Route::get('signup/activate/{token}', 'AuthController@signupActivate');
+    Route::get('sellerSignup/activate/{token}', 'AuthController@sellerSignupActivate');
+    Route::get('adminSignup/activate/{token}', 'AuthController@adminSignupActivate');
+  
+    // Route::group([
+    //   'middleware' => 'auth:api'
+    // ], function() {
+    //     Route::get('logout', 'AuthController@logout');
+    //     Route::get('user', 'AuthController@user');
+    // });
+});
+
 //Goods
 Route::get('/', 'GoodsController@index');
 Route::get('prdetails/{id}', 'GoodsController@show');

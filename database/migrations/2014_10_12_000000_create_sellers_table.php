@@ -43,8 +43,14 @@ class CreateSellersTable extends Migration
             // $table->string('swift');
             // $table->string('bank_info');
             // $table->string('api_token')->nullable();
+
+            $table->boolean('active')->default(false);
+            $table->string('activation_token');
+
             $table->rememberToken();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

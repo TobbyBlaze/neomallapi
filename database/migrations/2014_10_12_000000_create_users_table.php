@@ -36,8 +36,13 @@ class CreateUsersTable extends Migration
             // $table->string('card_last_four', 4)->nullable();
             // $table->timestamp('trial_ends_at')->nullable();
 
+            $table->boolean('active')->default(false);
+            $table->string('activation_token');
+
             $table->rememberToken();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

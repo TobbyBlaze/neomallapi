@@ -22,8 +22,14 @@ class CreateAdminsTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             // $table->string('api_token')->nullable();
+
+            $table->boolean('active')->default(false);
+            $table->string('activation_token');
+            
             $table->rememberToken();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

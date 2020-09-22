@@ -9,9 +9,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 // use Illuminate\Foundation\Auth\Seller as Authenticatable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Seller extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable, HasApiTokens, SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +25,7 @@ class Seller extends Authenticatable
     protected $guard = 'seller';
 
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'phone_number_1', 'phone_number_2', 'store_name', 'store_pics', 'address_1', 'address_2', 'city', 'country', 'zip', 'business_reg_no', 'business_reg_doc', 'tin', 'vat', 'vat_info_doc', 'company_name', 'bank_name', 'acct_holder_name', 'bank_acct_number', 'bank_code', 'iban', 'swift', 'bank_info',
+        'name', 'last_name', 'email', 'password', 'phone_number_1', 'phone_number_2', 'store_name', 'store_pics', 'address_1', 'address_2', 'city', 'country', 'zip', 'business_reg_no', 'business_reg_doc', 'tin', 'vat', 'vat_info_doc', 'company_name', 'bank_name', 'acct_holder_name', 'bank_acct_number', 'bank_code', 'iban', 'swift', 'bank_info', 'active', 'activation_token'
     ];
 
     /**
@@ -31,7 +34,7 @@ class Seller extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'activation_token'
     ];
 
     /**

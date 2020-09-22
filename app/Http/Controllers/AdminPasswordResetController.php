@@ -5,10 +5,10 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
-use App\Seller;
+use App\Admin;
 use App\PasswordReset;
 
-class SellerPasswordResetController extends Controller
+class AdminPasswordResetController extends Controller
 {
     /**
      * Create token password reset
@@ -21,7 +21,7 @@ class SellerPasswordResetController extends Controller
         $request->validate([
             'email' => 'required|string|email',
         ]);
-        $user = Seller::where('email', $request->email)->first();
+        $user = Admin::where('email', $request->email)->first();
         if (!$user)
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.'
@@ -89,7 +89,7 @@ class SellerPasswordResetController extends Controller
             return response()->json([
                 'message' => 'This password reset token is invalid.'
             ], 404);
-        $user = Seller::where('email', $passwordReset->email)->first();
+        $user = Admin::where('email', $passwordReset->email)->first();
         if (!$user)
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.'

@@ -13,6 +13,10 @@ use App\Seller;
 use App\Admin;
 use Validator;
 
+use App\Notifications\SignupActivate;
+use App\Notifications\sellerSignupActivate;
+use App\Notifications\adminSignupActivate;
+
 class AuthController extends ResponseController
 {
 
@@ -38,6 +42,9 @@ class AuthController extends ResponseController
         $user = User::create($input);
         if($user){
             $success['token'] =  $user->createToken('token')->accessToken;
+
+            $user->notify(new SignupActivate($user));
+
             $success['message'] = "Registration successfull..";
             return $this->sendResponse($success);
         }
@@ -61,6 +68,10 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
+
+        $credentials['active'] = 1;
+        $credentials['deleted_at'] = null;
+        
         if(!Auth::attempt($credentials)){
             $error = "Unauthorized";
             return $this->sendError($error, 401);
@@ -101,6 +112,20 @@ class AuthController extends ResponseController
         }
     }
 
+    //Activate user account
+    public function signupActivate($token)
+    {
+        $user = User::where('activation_token', $token)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'This activation token is invalid.'
+            ], 404);
+        }
+        $user->active = true;
+        $user->activation_token = '';
+        $user->save();
+        return $user;
+    }
 
     //create seller
     public function seller_signup(Request $request)
@@ -143,6 +168,9 @@ class AuthController extends ResponseController
         $seller = Seller::create($input);
         if($seller){
             $success['token'] =  $seller->createToken('token')->accessToken;
+
+            $seller->notify(new sellerSignupActivate($seller));
+
             $success['message'] = "Registration successfull..";
             return $this->sendResponse($success);
         }
@@ -166,6 +194,10 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
+
+        $credentials['active'] = 1;
+        $credentials['deleted_at'] = null;
+
         if(!Auth::guard('seller')->attempt($credentials)){
             $error = "Unauthorized seller";
             return $this->sendError($error, 401);
@@ -208,6 +240,21 @@ class AuthController extends ResponseController
         }
     }
 
+    //Activate seller account
+    public function sellerSignupActivate($token)
+    {
+        $user = Seller::where('activation_token', $token)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'This activation token is invalid.'
+            ], 404);
+        }
+        $user->active = true;
+        $user->activation_token = '';
+        $user->save();
+        return $user;
+    }
+
 
     //create admin
     public function admin_signup(Request $request)
@@ -229,6 +276,9 @@ class AuthController extends ResponseController
         $admin = Admin::create($input);
         if($admin){
             $success['token'] =  $admin->createToken('token')->accessToken;
+
+            $admin->notify(new adminSignupActivate($admin));
+
             $success['message'] = "Registration successfull..";
             return $this->sendResponse($success);
         }
@@ -252,6 +302,10 @@ class AuthController extends ResponseController
         }
 
         $credentials = request(['email', 'password']);
+
+        $credentials['active'] = 1;
+        $credentials['deleted_at'] = null;
+
         if(!Auth::guard('admin')->attempt($credentials)){
             $error = "Unauthorized admin";
             return $this->sendError($error, 401);
@@ -288,5 +342,20 @@ class AuthController extends ResponseController
             $error = "admin not found";
             return $this->sendResponse($error);
         }
+    }
+
+    //Activate admin account
+    public function adminSignupActivate($token)
+    {
+        $user = Admin::where('activation_token', $token)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'This activation token is invalid.'
+            ], 404);
+        }
+        $user->active = true;
+        $user->activation_token = '';
+        $user->save();
+        return $user;
     }
 }
