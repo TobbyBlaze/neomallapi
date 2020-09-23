@@ -218,7 +218,7 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
 
-        $credentials['active'] = true;
+        // $credentials['active'] = true;
         // $credentials['deleted_at'] = null;
 
         if(!Auth::guard('seller')->attempt($credentials)){
