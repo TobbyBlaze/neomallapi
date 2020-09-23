@@ -71,8 +71,8 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
 
-        $credentials['active'] = true;
-        $credentials['deleted_at'] = null;
+        // $credentials['active'] = true;
+        // $credentials['deleted_at'] = null;
         
         if(!Auth::attempt($credentials)){
             $error = "Unauthorized";
