@@ -93,7 +93,6 @@ class GoodsController extends Controller
 
             return response()->json($good, 201);
         }
-
     }
 
     public function show($id, Request $request)

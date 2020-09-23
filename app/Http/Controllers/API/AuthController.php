@@ -17,6 +17,8 @@ use App\Notifications\SignupActivate;
 use App\Notifications\sellerSignupActivate;
 use App\Notifications\adminSignupActivate;
 
+use Stevebauman\Location\Facades\Location;
+
 class AuthController extends ResponseController
 {
 
@@ -164,6 +166,27 @@ class AuthController extends ResponseController
 
             $input['store_pics'] = json_encode($data);
         }
+
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = '';
+
+        $location = \Location::get($ipaddress);
+
+        $input['city'] = $location->cityName;
+        $input['country'] = $location->countryName;
 
         $seller = Seller::create($input);
         if($seller){
