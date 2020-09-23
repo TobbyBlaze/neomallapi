@@ -71,7 +71,7 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
 
-        $credentials['active'] = 1;
+        $credentials['active'] = true;
         $credentials['deleted_at'] = null;
         
         if(!Auth::attempt($credentials)){
