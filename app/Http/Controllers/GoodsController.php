@@ -158,7 +158,7 @@ class GoodsController extends Controller
         $viewGood->goodId = $good->id;
         $viewGood->goodName = $good->name;
         $viewGood->goodViews = $good->views;
-        // $viewGood->goodCategory = $good->category;
+        $viewGood->goodCategory = $good->category;
         $viewGood->cityName = $location->cityName;
         $viewGood->countryCode = $location->countryCode;
         $viewGood->countryName = $location->countryName;
