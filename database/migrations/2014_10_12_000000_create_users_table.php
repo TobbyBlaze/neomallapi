@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             // $table->timestamp('trial_ends_at')->nullable();
 
             $table->boolean('active')->default(false);
-            $table->string('activation_token');
+            $table->string('activation_token')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

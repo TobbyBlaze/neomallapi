@@ -45,7 +45,7 @@ class CreateSellersTable extends Migration
             // $table->string('api_token')->nullable();
 
             $table->boolean('active')->default(false);
-            $table->string('activation_token');
+            $table->string('activation_token')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
