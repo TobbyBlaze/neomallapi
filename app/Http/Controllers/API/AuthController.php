@@ -218,8 +218,8 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
 
-        $credentials['active'] = 1;
-        $credentials['deleted_at'] = null;
+        $credentials['active'] = true;
+        // $credentials['deleted_at'] = null;
 
         if(!Auth::guard('seller')->attempt($credentials)){
             $error = "Unauthorized seller";
