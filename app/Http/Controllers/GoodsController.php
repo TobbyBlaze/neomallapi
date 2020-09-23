@@ -19,14 +19,14 @@ class GoodsController extends Controller
 {
     public function index()
     {
-        $goods = Good::orderBy('goods.updated_at', 'desc')
+        $newGoods = Good::orderBy('goods.updated_at', 'desc')
         ->paginate(5);
 
         $popGoods = Good::orderBy('goods.views', 'desc')
         ->paginate(20);
 
         $data = [
-            'goods'=>$goods,
+            'newGoods'=>$newGoods,
             'popGoods'=>$popGoods,
         ];
 
