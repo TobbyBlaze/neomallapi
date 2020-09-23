@@ -59,7 +59,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@stu.ucc.edu.gh'),
-        'name' => env('MAIL_FROM_NAME', 'Neomall Reset Password'),
+        'name' => env('MAIL_FROM_NAME', 'Neomall'),
     ],
 
     /*
