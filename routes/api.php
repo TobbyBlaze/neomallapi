@@ -116,8 +116,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 });
 
 //User Reset password
-Route::group([    
-    'namespace' => 'Auth',    
+Route::group([       
     'middleware' => 'api',    
     'prefix' => 'password'
 ], function () {    
@@ -127,25 +126,23 @@ Route::group([
 });
 
 //Seller Reset password
-Route::group([    
-    'namespace' => 'Auth',    
+Route::group([       
     'middleware' => 'api',    
     'prefix' => 'password'
 ], function () {    
     Route::post('sellerCreate', 'SellerPasswordResetController@create');
-    Route::get('find/{token}', 'SellerPasswordResetController@find');
-    Route::post('reset', 'SellerPasswordResetController@reset');
+    Route::get('sellerFind/{token}', 'SellerPasswordResetController@find');
+    Route::post('sellerReset', 'SellerPasswordResetController@reset');
 });
 
 //Admin Reset password
-Route::group([    
-    'namespace' => 'Auth',    
+Route::group([      
     'middleware' => 'api',    
     'prefix' => 'password'
 ], function () {    
     Route::post('adminCreate', 'AdminPasswordResetController@create');
-    Route::get('find/{token}', 'AdminPasswordResetController@find');
-    Route::post('reset', 'AdminPasswordResetController@reset');
+    Route::get('adminFind/{token}', 'AdminPasswordResetController@find');
+    Route::post('adminReset', 'AdminPasswordResetController@reset');
 });
 
 // Account activation
