@@ -22,12 +22,13 @@ class PasswordResetController extends Controller
             'email' => 'required|string|email',
         ]);
         
-        $mail = $request->email;
-        $user = User::where('email', $mail)->first();
+        // $mail = $request->email;
+        $credentials = request(['email']);
+        $user = User::where('email', $credentials)->first();
         // $user = DB::table('users')->where('email', $request->email)->first();
         if (!$user)
             return response()->json([
-                'message' => 'We can\'t find a user with that e-mail address.',
+                // 'message' => 'We can\'t find a user with that e-mail address.',
                 'user' => $user
             ], 404);
         $passwordReset = PasswordReset::updateOrCreate(
