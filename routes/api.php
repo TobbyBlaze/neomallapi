@@ -132,7 +132,7 @@ Route::group([
     'middleware' => 'api',    
     'prefix' => 'password'
 ], function () {    
-    Route::post('create', 'SellerPasswordResetController@create');
+    Route::post('sellerCreate', 'SellerPasswordResetController@create');
     Route::get('find/{token}', 'SellerPasswordResetController@find');
     Route::post('reset', 'SellerPasswordResetController@reset');
 });
@@ -143,7 +143,7 @@ Route::group([
     'middleware' => 'api',    
     'prefix' => 'password'
 ], function () {    
-    Route::post('create', 'AdminPasswordResetController@create');
+    Route::post('adminCreate', 'AdminPasswordResetController@create');
     Route::get('find/{token}', 'AdminPasswordResetController@find');
     Route::post('reset', 'AdminPasswordResetController@reset');
 });
