@@ -16,6 +16,8 @@ class Seller extends Authenticatable
     use Notifiable, HasApiTokens, SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    protected $table = 'sellers';
+
     /**
      * The attributes that are mass assignable.
      *
