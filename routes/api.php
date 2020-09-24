@@ -154,9 +154,9 @@ Route::group([
 ], function () {
     // Route::post('login', 'AuthController@login');
     // Route::post('signup', 'AuthController@signup');
-    Route::get('signup/activate/{token}', 'AuthController@signupActivate');
-    Route::get('sellerSignup/activate/{token}', 'AuthController@sellerSignupActivate');
-    Route::get('adminSignup/activate/{token}', 'AuthController@adminSignupActivate');
+    Route::get('signup/activate/{token}', 'API\AuthController@signupActivate');
+    Route::get('sellerSignup/activate/{token}', 'API\AuthController@sellerSignupActivate');
+    Route::get('adminSignup/activate/{token}', 'API\AuthController@adminSignupActivate');
   
     // Route::group([
     //   'middleware' => 'auth:api'
