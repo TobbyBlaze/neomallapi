@@ -45,7 +45,7 @@ class adminSignupActivate extends Notification
         //             ->action('Notification Action', url('/'))
         //             ->line('Thank you for using our application!');
 
-        $url = url('/api/auth/adminSignup/activate/'.$notifiable->activation_token);
+        $url = url('https://neomall.herokuapp.com/activateAdmin/'.$notifiable->activation_token);
     return (new MailMessage)
         ->subject('Confirm your account')
         ->line('Thanks for signup! Please before you begin, you must confirm your account.')
