@@ -7,6 +7,7 @@ use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
 use App\User;
 use App\PasswordReset;
+
 class PasswordResetController extends Controller
 {
     /**
@@ -20,7 +21,8 @@ class PasswordResetController extends Controller
         $request->validate([
             'email' => 'required|string|email',
         ]);
-        $user = User::where('email', '=', $request->email)->get();
+        // $user = User::where('email', '=', $request->email)->get();
+        $user = DB::table('users')->where('email', $request->email)->first();
         if (!$user)
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.'
