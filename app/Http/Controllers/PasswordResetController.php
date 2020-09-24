@@ -21,8 +21,8 @@ class PasswordResetController extends Controller
         $request->validate([
             'email' => 'required|string|email',
         ]);
-        $mail = $request->email;
-        $user = User::where('email', $mail)->first();
+        
+        $user = User::where('email', $request->email)->first();
         // $user = DB::table('users')->where('email', $request->email)->first();
         if (!$user)
             return response()->json([
