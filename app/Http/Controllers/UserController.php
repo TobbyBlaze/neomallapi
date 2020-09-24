@@ -32,7 +32,7 @@ class UserController extends Controller
 
         // $user = $request->user();
         $user = Auth::user();
-        $password = $user->password;
+        // $password = $user->password;
 
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
@@ -44,16 +44,19 @@ class UserController extends Controller
         $user->phone1 = $request->input('phone1');
         $user->phone2 = $request->input('phone2');
         $user->address1 = $request->input('address1');
-        $user->address2 = $request->input('address2');;
-        $user->password = bcrypt($request->input('password'));
+        $user->address2 = $request->input('address2');
+        // $user->password = bcrypt($request->input('password'));
+
+        $user->save();
+        return response()->json($user, 201);
         
-        if($user->password == $password){
-            $user->save();
-            return response()->json($user, 201);
-        }else{
-            $error = 'User account could not be updated';
-            return response()->json($error, 201);
-        }
+        // if($user->password == $password){
+        //     $user->save();
+        //     return response()->json($user, 201);
+        // }else{
+        //     $error = 'User account could not be updated';
+        //     return response()->json($error, 201);
+        // }
       
     }
 
