@@ -50,14 +50,7 @@ class UserController extends Controller
         $user->save();
         return response()->json($user, 201);
         
-        // if($user->password == $password){
-        //     $user->save();
-        //     return response()->json($user, 201);
-        // }else{
-        //     $error = 'User account could not be updated';
-        //     return response()->json($error, 201);
-        // }
-      
+        
     }
 
     public function updateUserPassword(Request $request)
@@ -70,10 +63,7 @@ class UserController extends Controller
         $old_password = bcrypt($request->input('old_password'));
         $user->password = bcrypt($request->input('password'));
 
-        // $user->save();
-        // return response()->json($user, 201);
-        
-        if($old_password == $password){
+        if(Hash::check($old_password, $password)){
             $user->save();
             return response()->json($user, 201);
         }else{
