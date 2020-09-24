@@ -67,12 +67,13 @@ class UserController extends Controller
         $user = Auth::user();
         $password = $user->password;
 
+        $old_password = bcrypt($request->input('old_password'));
         $user->password = bcrypt($request->input('password'));
 
         // $user->save();
         // return response()->json($user, 201);
         
-        if($user->password == $password){
+        if($old_password == $password){
             $user->save();
             return response()->json($user, 201);
         }else{
