@@ -41,6 +41,7 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['activation_token'] = str_random(60);
         $user = User::create($input);
         if($user){
             $success['token'] =  $user->createToken('token')->accessToken;
@@ -155,6 +156,7 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['activation_token'] = str_random(60);
 
         if($request->hasFile('image')){
             foreach ($request->file('image') as $sinfile){
@@ -296,6 +298,8 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['activation_token'] = str_random(60);
+        
         $admin = Admin::create($input);
         if($admin){
             $success['token'] =  $admin->createToken('token')->accessToken;
