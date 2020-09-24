@@ -27,11 +27,11 @@ class PasswordResetController extends Controller
         // $credentials = request(['email']);
         $user = User::where('email', $request->email)->first();
         // $user = DB::table('users')->where('email', $request->email)->first();
-        if (!$user)
-            return response()->json([
-                // 'message' => 'We can\'t find a user with that e-mail address.',
-                'user' => $user
-            ], 404);
+        // if (!$user)
+        //     return response()->json([
+        //         // 'message' => 'We can\'t find a user with that e-mail address.',
+        //         'user' => $user
+        //     ], 404);
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $user->email],
             [
