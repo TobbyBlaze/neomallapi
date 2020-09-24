@@ -60,6 +60,28 @@ class UserController extends Controller
       
     }
 
+    public function updateUserPassword(Request $request)
+    {
+
+        // $user = $request->user();
+        $user = Auth::user();
+        $password = $user->password;
+
+        $user->password = bcrypt($request->input('password'));
+
+        // $user->save();
+        // return response()->json($user, 201);
+        
+        if($user->password == $password){
+            $user->save();
+            return response()->json($user, 201);
+        }else{
+            $error = 'User password could not be updated';
+            return response()->json($error, 201);
+        }
+      
+    }
+
     public function updateSeller(Request $request)
     {
 
