@@ -61,7 +61,7 @@ class UserController extends Controller
         $user = Auth::user();
         $password = $user->password;
 
-        $old_password = bcrypt($request->input('old_password'));
+        $old_password = $request->input('old_password');
         $user->password = bcrypt($request->input('password'));
 
         if(Hash::check($old_password, $password)){
