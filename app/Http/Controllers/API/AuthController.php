@@ -157,7 +157,7 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $input['activation_token'] = str_random(60);
+        $input['activation_token'] = sha1(time());
 
         if($request->hasFile('image')){
             foreach ($request->file('image') as $sinfile){
@@ -299,7 +299,7 @@ class AuthController extends ResponseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $input['activation_token'] = str_random(60);
+        $input['activation_token'] = sha1(time());
 
         $admin = Admin::create($input);
         if($admin){
