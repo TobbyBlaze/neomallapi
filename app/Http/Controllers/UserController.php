@@ -30,7 +30,8 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
 
-        $user = $request->user();
+        // $user = $request->user();
+        $user = Auth::user();
         $password = $user->password;
 
         $user->name = $request->input('name');
