@@ -88,7 +88,7 @@ class CheckoutController extends Controller
             $order->address1 = 'vyuvhbuj';
             $order->address2 = $user->address2;
             $order->city = $user->city;
-            $order->state = $user->state;
+            $order->state = 'ftycuyh';
             $order->zip = $user->zip;
             $order->phone = $user->phone;
             $order->email = $user->email;
