@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Seller;
 use App\Admin;
+use App\Courier;
 use Validator;
 
 use App\Notifications\SignupActivate;
 use App\Notifications\sellerSignupActivate;
 use App\Notifications\adminSignupActivate;
+use App\Notifications\courierSignupActivate;
 
 use Stevebauman\Location\Facades\Location;
 
@@ -190,6 +192,7 @@ class AuthController extends ResponseController
 
         $input['city'] = $location->cityName;
         $input['country'] = $location->countryName;
+        $input['zip'] = $location->zipCode;
 
         $seller = Seller::create($input);
         if($seller){
@@ -386,4 +389,124 @@ class AuthController extends ResponseController
         $user->save();
         return $user;
     }
+
+    //create courier
+public function courier_signup(Request $request)
+{
+
+    $input = $request->all();
+    $input['password'] = bcrypt($input['password']);
+    $input['activation_token'] = sha1(time());
+
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = '';
+
+    $location = \Location::get($ipaddress);
+
+    $input['city'] = $location->cityName;
+    $input['country'] = $location->countryName;
+    $input['zip'] = $location->zipCode;
+
+    $courier = Courier::create($input);
+    if($courier){
+        $success['token'] =  $courier->createToken('token')->accessToken;
+
+        $courier->notify(new courierSignupActivate($courier));
+
+        $success['message'] = "Registration successfull..";
+        return $this->sendResponse($success);
+    }
+    else{
+        $error = "Sorry! Registration is not successfull.";
+        return $this->sendError($error, 401); 
+    }
+    
+}
+
+//login courier
+public function courier_login(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|string|email',
+        'password' => 'required'
+    ]);
+
+    if($validator->fails()){
+        return $this->sendError($validator->errors());       
+    }
+
+    $credentials = request(['email', 'password']);
+
+    // $credentials['active'] = true;
+    // $credentials['deleted_at'] = null;
+
+    if(!Auth::guard('courier')->attempt($credentials)){
+        $error = "Unauthorized courier";
+        return $this->sendError($error, 401);
+    }
+
+    $user = Auth::guard('courier')->user();
+    $success['token'] =  $user->createToken('token')->accessToken;
+
+    return $this->sendResponse($success);
+}
+
+//logout courier
+public function courier_logout(Request $request)
+{
+    
+    $isCourier = $request->user()->token()->revoke();
+    if($isCourier){
+        $success['message'] = "Successfully logged out.";
+        return $this->sendResponse($success);
+    }
+    else{
+        $error = "Something went wrong.";
+        return $this->sendResponse($error);
+    }
+        
+    
+}
+
+//getcourier
+public function getCourier(Request $request)
+{
+    $courier = $request->user();
+    
+    if($courier){
+        return $this->sendResponse($courier);
+    }
+    else{
+        $error = "seller not found";
+        return $this->sendResponse($error);
+    }
+}
+
+//Activate courier account
+public function courierSignupActivate($token)
+{
+    $user = Courier::where('activation_token', $token)->first();
+    if (!$user) {
+        return response()->json([
+            'message' => 'This activation token is invalid.'
+        ], 404);
+    }
+    $user->active = true;
+    $user->activation_token = '';
+    $user->save();
+    return $user;
+}
 }

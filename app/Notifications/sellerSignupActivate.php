@@ -48,9 +48,9 @@ class sellerSignupActivate extends Notification
         $url = url('https://neomall.herokuapp.com/activateSeller/'.$notifiable->activation_token);
     return (new MailMessage)
         ->subject('Confirm your account')
-        ->line('Thanks for signup! Please before you begin, you must confirm your account.')
+        ->line('Thanks for registering a seller account with us! Please click on the link below to confirm your account.')
         ->action('Confirm Account', url($url))
-        ->line('Thank you for using our application!');
+        ->line('Thanks!');
     }
 
     /**

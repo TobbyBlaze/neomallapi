@@ -114,6 +114,12 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::get('getadmin', 'API\AuthController@getAdmin');
     });
 
+    //Courier
+    Route::group(['middleware' => ['auth:api', 'auth.courier']], function() {
+        Route::get('c-logout', 'API\AuthController@courier_logout');
+        Route::get('getcourier', 'API\AuthController@getCourier');
+    });
+
 });
 
 //User Reset password
@@ -146,6 +152,16 @@ Route::group([
     Route::post('adminReset', 'AdminPasswordResetController@reset');
 });
 
+//Courier Reset password
+Route::group([      
+    'middleware' => 'api',    
+    'prefix' => 'password'
+], function () {    
+    Route::post('courierCreate', 'CourierPasswordResetController@create');
+    Route::get('courierFind/{token}', 'CourierPasswordResetController@find');
+    Route::post('courierReset', 'CourierPasswordResetController@reset');
+});
+
 // Account activation
 Route::group([
     'prefix' => 'auth'
@@ -155,6 +171,7 @@ Route::group([
     Route::get('signup/activate/{token}', 'API\AuthController@signupActivate');
     Route::get('sellerSignup/activate/{token}', 'API\AuthController@sellerSignupActivate');
     Route::get('adminSignup/activate/{token}', 'API\AuthController@adminSignupActivate');
+    Route::get('courierSignup/activate/{token}', 'API\AuthController@courierSignupActivate');
   
     // Route::group([
     //   'middleware' => 'auth:api'
@@ -166,6 +183,7 @@ Route::group([
 
 //Goods
 Route::get('/', 'GoodsController@index');
+Route::get('cat/{id}', 'GoodsController@cat');
 Route::get('prdetails/{id}', 'GoodsController@show');
 
 //Stores

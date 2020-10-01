@@ -33,6 +33,20 @@ class GoodsController extends Controller
         return response()->json($data,200);
     }
 
+    public function cat($id)
+    {
+
+        $catGoods = Good::orderBy('goods.updated_at', 'desc')
+        ->where('good.category', $id)
+        ->paginate(5);
+
+        $data = [
+            'catGoods'=>$catGoods,
+        ];
+
+        return response()->json($data,200);
+    }
+
     public function store(Request $request)
     {
         $user = Seller::find(Auth::user()->id);
@@ -61,13 +75,19 @@ class GoodsController extends Controller
             $good = new Good;
             $good->name = $request->input('name');
             $good->description = $request->input('description');
-            $good->price = $request->input('price');
+            $good->originalPrice = $request->input('originalPrice');
+            if($request->input('discount')){
+                $good->discount = $request->input('discount');
+                $good->price = $good->discount * 0.01 * $good->originalPrice;
+            }else{
+                $good->price = $good->originalPrice;
+            }
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
-            // $good->seller_name = $user->name;
-            // $good->countryName = $user->countryName;
-            // $good->cityName = $user->cityName;
+            $good->seller_name = $user->name;
+            $good->countryName = $user->countryName;
+            $good->cityName = $user->cityName;
             $good->image = json_encode($data);
 
             $good->save();
@@ -81,13 +101,19 @@ class GoodsController extends Controller
             $good = new Good;
             $good->name = $request->input('name');
             $good->description = $request->input('description');
-            $good->price = $request->input('price');
+            $good->originalPrice = $request->input('originalPrice');
+            if($request->input('discount')){
+                $good->discount = $request->input('discount');
+                $good->price = $good->discount * 0.01 * $good->originalPrice;
+            }else{
+                $good->price = $good->originalPrice;
+            }
             $good->category = $request->input('category');
             $good->quantity = $request->input('quantity');
             $good->seller_id = Auth::user()->id;
-            // $good->seller_name = $user->name;
-            // $good->countryName = $user->countryName;
-            // $good->cityName = $user->cityName;
+            $good->seller_name = $user->name;
+            $good->countryName = $user->countryName;
+            $good->cityName = $user->cityName;
             
             $good->save();
 
@@ -98,12 +124,22 @@ class GoodsController extends Controller
     public function show($id, Request $request)
     {
         $good = Good::find($id);
+        $user = $request->user();
+        $location = \Location::get($ipaddress);
+
+        $relatedGoods = Good::orderBy('goods.updated_at', 'desc')
+        ->where('goods.category', $good->category)
+        ->paginate(5);
+
+        $recentViewedGoods = viewGoods::orderBy('view_goods.updated_at', 'desc')
+        ->where('view_goods.ip', $location->ip)
+        ->paginate(5);
+
         $seller = Seller::find($good->seller_id);
 
         // if(Auth::user()->id != null){
             // $user = Auth::user() || null;
         // }
-        $user = $request->user();
 
         // $goods = Good::all();
 
@@ -135,7 +171,7 @@ class GoodsController extends Controller
         else
             $ipaddress = '';
 
-        $location = \Location::get($ipaddress);
+        // $location = \Location::get($ipaddress);
 
         $agent = new Agent();
         $device = $agent->device();

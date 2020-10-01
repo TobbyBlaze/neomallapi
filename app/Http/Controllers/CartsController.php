@@ -38,11 +38,12 @@ class CartsController extends Controller
     public function store(Request $request)
     {
         $cart = new Cart;
+        $cart->good_id = $request->input('good_id');
         $cart->name = $request->input('name');
         $cart->description = $request->input('description');
         $cart->price = $request->input('price');
         $cart->category = $request->input('category');
-        $cart->quantity = $request->input('quantity');
+        $cart->quantity = $request->input('qty');
         $cart->user_id = auth()->user()->id;
         
         $cart->image = $request->file('image');
@@ -71,6 +72,7 @@ class CartsController extends Controller
         $user = User::find(auth::user()->id);
 
         $cart = Cart::find($id);
+        $cart = $request->input('good_id');
         $cart->name = $request->input('name');
         $cart->description = $request->input('description');
         $cart->price = $request->input('price');

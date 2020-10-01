@@ -17,6 +17,7 @@ class CreateCartsTable extends Migration
             
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('good_id')->unsigned()->nullable();
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->string('image')->nullable();
@@ -27,6 +28,7 @@ class CreateCartsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('good_id')->references('id')->on('goods')->onDelete('cascade');
         });
     }
 

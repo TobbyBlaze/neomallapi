@@ -11,6 +11,7 @@ use Stripe\Charge;
 use App\User;
 use App\Order;
 use App\Cart;
+use App\Good;
 use Auth;
 use DB;
 
@@ -30,22 +31,36 @@ class CheckoutController extends Controller
                 'email' => $user->email,
                 'source' => $request->id
             ));
-        
-            $charge = Charge::create(array(
-                // 'customer' => $request->card->id,
-                'customer' => $customer->id,
-                'amount' => 1999,
-                'currency' => 'usd'
-            ));
 
-            $carts = Cart::orderBy('carts.updated_at', 'desc')
-            ->where('carts.user_id', $user->id)
+            $carts = Cart::where('carts.user_id', $user->id)
             ->get();
+
+            $goodPrice = 0;
 
             foreach ($carts as $cart){
                 $goodName[] = $cart->name;
                 $goodQuantity[] = $cart->quantity;
+                $goodPrice[] = $cart->price;
+                $goodSubTotPrice = $goodSubTotPrice + ($cart->price * $cart->quantity);
+                $goodTotPrice = $goodTotPrice + ($cart->price * $cart->quantity);
+
+                $good = Good::find($cart->good_id);
+
+                Good::where('id', '=', $cart->good_id)
+                ->update([
+                    'quantity' => 
+                    $good->quantity - $cart->quantity        ,
+                    // Prevent the updated_at column from being refreshed every time there is a new view
+                    'updated_at' => \DB::raw('updated_at')   
+                ]);
             }
+
+            $charge = Charge::create(array(
+                // 'customer' => $request->card->id,
+                'customer' => $customer->id,
+                'amount' => $goodTotPrice * 100,
+                'currency' => 'usd'
+            ));
 
             $order = new Order;
         
@@ -72,6 +87,9 @@ class CheckoutController extends Controller
             $order->email = $user->email;
             $order->goodsName = json_encode($goodName);
             $order->goodsQuantity = json_encode($goodQuantity);
+            $order->goodsPrice = json_encode($goodPrice);
+            $order->subtotal = $goodSubTotPrice;
+            $order->total = $goodTotPrice;
 
             $order->save();
 

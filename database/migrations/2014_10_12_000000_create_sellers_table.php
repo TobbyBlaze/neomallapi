@@ -15,8 +15,8 @@ class CreateSellersTable extends Migration
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->string('name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -28,20 +28,20 @@ class CreateSellersTable extends Migration
             $table->string('address_2')->nullable();
             $table->string('city');
             $table->string('country');
-            $table->string('zip');
+            $table->string('zip')->nullable();
             // $table->string('business_reg_no');
             // $table->string('business_reg_doc')->nullable();
             // $table->string('tin');
             // $table->string('vat');
             // $table->string('vat_info_doc')->nullable();
-            $table->string('company_name');
+            // $table->string('company_name');
             $table->string('bank_name');
             $table->string('acct_holder_name');
             $table->string('bank_acct_number');
-            // $table->string('bank_code');
-            // $table->string('iban');
-            // $table->string('swift');
-            // $table->string('bank_info');
+            $table->string('bank_code')->nullable();
+            $table->string('iban')->nullable();
+            $table->string('swift')->nullable();
+            $table->string('bank_info')->nullable();
             // $table->string('api_token')->nullable();
 
             $table->boolean('active')->default(false);

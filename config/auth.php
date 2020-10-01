@@ -74,6 +74,19 @@ return [
             'provider' => 'admins',
             'hash' => false,
         ],
+
+        //courier
+
+        'courier' => [
+            'driver' => 'session',
+            'provider' => 'couriers',
+        ],
+
+        'courier-api' => [
+            'driver' => 'passport',
+            'provider' => 'couriers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -109,6 +122,11 @@ return [
             'model' => App\Admin::class,
         ],
 
+        'couriers' => [
+            'driver' => 'eloquent',
+            'model' => App\Courier::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -138,6 +156,16 @@ return [
         ],
         'sellers' => [
             'provider' => 'sellers',
+            'table' => 'password_resets',
+            // 'expire' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            // 'expire' => 60,
+        ],
+        'couriers' => [
+            'provider' => 'couriers',
             'table' => 'password_resets',
             // 'expire' => 60,
         ],

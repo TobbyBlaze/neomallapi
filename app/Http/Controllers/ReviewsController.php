@@ -33,11 +33,13 @@ class ReviewsController extends Controller
     {
 
         $good = Good::find($id);
+        $user = Auth::user();
 
         $review = new Review;
         $review->rating = $request->input('rating');
         $review->body = $request->input('body');
-        $review->user_id = auth()->user()->id;
+        $review->user_id = $user->id;
+        $review->user_name = $user->name;
         $review->good_id = $good->id;
         
         $review->save();
@@ -49,7 +51,7 @@ class ReviewsController extends Controller
     {
         $review = Review::find($id);
 
-        $user = User::find($id);
+        $user = Auth::user();
 
         $users = User::where('users.status', '!=', auth()->user()->status)->orWhere('users.department', '=', auth()->user()->department)->orWhere('users.school', '=', auth()->user()->school)->orWhere('users.college', '=', auth()->user()->college)->orderBy('users.created_at', 'desc')->paginate(10);
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Good;
 use App\Cart;
 use App\User;
+use App\Seller;
 use App\Notifications\NewReview;
 use App\Notifications\NewCart;
 use Auth;

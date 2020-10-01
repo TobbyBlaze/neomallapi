@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SignupActivate extends Notification
+class courierSignupActivate extends Notification
 {
     use Queueable;
 
@@ -45,10 +45,10 @@ class SignupActivate extends Notification
         //             ->action('Notification Action', url('/'))
         //             ->line('Thank you for using our application!');
 
-        $url = url('https://neomall.herokuapp.com/activateUser/'.$notifiable->activation_token);
+        $url = url('https://neomall.herokuapp.com/activateCourier/'.$notifiable->activation_token);
     return (new MailMessage)
         ->subject('Confirm your account')
-        ->line('Thanks for registering an account with us! Please click on the link below to confirm your account.')
+        ->line('Thanks for registering a courier account with us! Please click on the link below to confirm your account.')
         ->action('Confirm Account', url($url))
         ->line('Thanks!');
     }
