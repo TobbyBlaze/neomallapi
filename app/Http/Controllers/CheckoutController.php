@@ -90,7 +90,7 @@ class CheckoutController extends Controller
             $order->city = $user->city;
             $order->state = 'ftycuyh';
             $order->zip = $user->zip;
-            $order->phone = $user->phone;
+            $order->phone = $user->phone1;
             $order->email = $user->email;
             $order->goodsName = json_encode($goodName);
             $order->goodsQuantity = json_encode($goodQuantity);
