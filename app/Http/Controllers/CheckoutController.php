@@ -39,6 +39,8 @@ class CheckoutController extends Controller
             $goodName = [];
             $goodQuantity = [];
             $goodPrice = [];
+            $goodSubTotPrice = 0;
+            $goodTotPrice = 0;
 
             foreach ($carts as $cart){
                 $goodName[] = $cart->name;
