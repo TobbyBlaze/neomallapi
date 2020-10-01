@@ -45,6 +45,7 @@ class CartsController extends Controller
         $cart->category = $request->input('category');
         $cart->quantity = $request->input('qty');
         $cart->user_id = auth()->user()->id;
+        $cart->good_id = $request->input('good_id');
         
         $cart->image = $request->file('image');
         

@@ -49,12 +49,13 @@ class CheckoutController extends Controller
                 $goodSubTotPrice = $goodSubTotPrice + ($cart->price * $cart->quantity);
                 $goodTotPrice = $goodTotPrice + ($cart->price * $cart->quantity);
 
-                $good = Good::find($cart->good_id);
+                // $good = Good::find($cart->good_id);
+                $good = Good::find(1);
 
                 Good::where('id', '=', $cart->good_id)
                 ->update([
                     'quantity' => 
-                    $good->quantity - 1        ,
+                    $good->quantity - $cart->quantity        ,
                     // Prevent the updated_at column from being refreshed every time there is a new view
                     'updated_at' => \DB::raw('updated_at')   
                 ]);
