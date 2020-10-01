@@ -35,7 +35,10 @@ class CheckoutController extends Controller
             $carts = Cart::where('carts.user_id', $user->id)
             ->get();
 
-            $goodPrice = 0;
+            // $goodPrice = 0;
+            $goodName = [];
+            $goodQuantity = [];
+            $goodPrice = [];
 
             foreach ($carts as $cart){
                 $goodName[] = $cart->name;
