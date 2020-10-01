@@ -54,7 +54,7 @@ class CheckoutController extends Controller
                 Good::where('id', '=', $cart->good_id)
                 ->update([
                     'quantity' => 
-                    $good->quantity - $cart->quantity        ,
+                    $good->quantity - 1        ,
                     // Prevent the updated_at column from being refreshed every time there is a new view
                     'updated_at' => \DB::raw('updated_at')   
                 ]);
