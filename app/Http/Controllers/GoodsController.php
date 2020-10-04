@@ -228,6 +228,8 @@ class GoodsController extends Controller
             'platformVersion' => $platformVersion,
             'ifRobot' => $ifRobot,
             'robot' => $robot,
+            'relatedGoods' => $relatedGoods,
+            'recentViewedGoods' => $recentViewedGoods
         ];
 
         return response()->json($good_data, 201);

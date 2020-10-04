@@ -14,11 +14,13 @@ use DB;
 
 class ReviewsController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $user = User::find(auth::user()->id);
+        $good = Good::find($id);
         
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
+        ->where('reviews.good_id', $good->id)
         ->paginate(20);
 
         $data = [

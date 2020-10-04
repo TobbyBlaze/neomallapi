@@ -7,6 +7,7 @@ use App\User;
 use App\Seller;
 use App\Admin;
 use App\Good;
+use App\Ads;
 use App\Cart;
 use App\Wish;
 use App\Review;
@@ -54,6 +55,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 
         //Reviews
         Route::resource('review', 'ReviewsController');
+        Route::get('review/{id}', 'ReviewsController@index');
         Route::any('storereview/{id}', 'ReviewsController@store');
         Route::any('updatereview/{id}', 'ReviewsController@update');
         Route::any('deletereview/{id}', 'ReviewsController@destroy');
@@ -192,6 +194,7 @@ Route::get('products/{id}', 'StoreController@show');
 
 //Search
 Route::any ( 'searchGoods', 'FindController@goods');
+Route::any ( 'searchAds', 'FindController@ads');
 Route::any ( 'searchSellers', 'FindController@sellers');
 
 //Checkout test

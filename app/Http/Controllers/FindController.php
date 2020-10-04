@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Good;
 use App\Seller;
+use App\Ads;
 use DB;
 // use Illuminate\Support\Facades\Input;
 
@@ -43,5 +44,17 @@ class FindController extends Controller
                 return response()->json($find_data);
             }
         }
+    }
+
+    public function ads(Request $request){
+        $q = $request->input('q');
+        $ads = Ads::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'description', 'LIKE', '%' . $q . '%' )->orWhere ( 'category', 'LIKE', '%' . $q . '%' )->paginate(20);
+    
+        $find_data = [
+            'q' => $q,
+            'ads' => $ads,
+        ];
+
+        return response()->json($find_data);
     }
 }

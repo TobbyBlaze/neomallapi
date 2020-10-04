@@ -114,7 +114,7 @@ class CartsController extends Controller
     {
         $carts = Cart::orderBy('carts.updated_at', 'desc')
         ->where('carts.user_id', $user->id)
-        ->paginate(20);
+        ->get();
 
         $carts->delete();
 

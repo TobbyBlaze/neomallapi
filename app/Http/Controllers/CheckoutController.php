@@ -49,8 +49,8 @@ class CheckoutController extends Controller
                 $goodSubTotPrice = $goodSubTotPrice + ($cart->price * $cart->quantity);
                 $goodTotPrice = $goodTotPrice + ($cart->price * $cart->quantity);
 
-                // $good = Good::find($cart->good_id);
-                $good = Good::find(1);
+                $good = Good::find($cart->good_id);
+                // $good = Good::find(1);
 
                 Good::where('id', '=', $cart->good_id)
                 ->update([
@@ -84,14 +84,14 @@ class CheckoutController extends Controller
             $order->first_name = $user->name;
             $order->last_name = $user->last_name;
             $order->country = $user->country;
-            // $order->address1 = $user->address1;
-            $order->address1 = 'vyuvhbuj';
-            $order->address2 = $user->address2;
+            $order->address1 = $user->address1;
+            // $order->address1 = 'vyuvhbuj';
+            // $order->address2 = $user->address2;
             $order->city = $user->city;
-            $order->state = 'ftycuyh';
+            // $order->state = 'ftycuyh';
             $order->zip = $user->zip;
-            // $order->phone = $user->phone1;
-            $order->phone = '234566';
+            $order->phone = $user->phone1;
+            // $order->phone = '234566';
             $order->email = $user->email;
             $order->goodsName = json_encode($goodName);
             $order->goodsQuantity = json_encode($goodQuantity);
@@ -107,6 +107,8 @@ class CheckoutController extends Controller
                 'charge'=>$charge,
                 'order' => $order,
             ];
+
+            $carts->delete();
 
         
             return response()->json($data,200);
