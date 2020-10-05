@@ -188,6 +188,10 @@ Route::get('/', 'GoodsController@index');
 Route::get('cat/{id}', 'GoodsController@cat');
 Route::get('prdetails/{id}', 'GoodsController@show');
 
+//Reviews
+Route::resource('review', 'ReviewsController');
+Route::get('review/{id}', 'ReviewsController@index');
+
 //Stores
 Route::get('stores', 'StoreController@index');
 Route::get('products/{id}', 'StoreController@show');

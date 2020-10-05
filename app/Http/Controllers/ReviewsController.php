@@ -14,9 +14,9 @@ use DB;
 
 class ReviewsController extends Controller
 {
-    public function index($id, Request $request)
+    public function index($id)
     {
-        $user = $request->user();
+        // $user = $request->user();
         $good = Good::find($id);
         
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
@@ -24,7 +24,7 @@ class ReviewsController extends Controller
         ->paginate(20);
 
         $data = [
-            'user' => $user,
+            // 'user' => $user,
             'reviews'=>$reviews,
         ];
 
