@@ -16,7 +16,7 @@ class ReviewsController extends Controller
 {
     public function index($id)
     {
-        $user = User::find(auth::user()->id);
+        // $user = User::find(auth::user()->id);
         $good = Good::find($id);
         
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
@@ -24,7 +24,7 @@ class ReviewsController extends Controller
         ->paginate(20);
 
         $data = [
-            'user' => $user,
+            // 'user' => $user,
             'reviews'=>$reviews,
         ];
 

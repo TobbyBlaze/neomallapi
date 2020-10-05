@@ -152,7 +152,7 @@ class GoodsController extends Controller
         ->where('view_goods.ip', $location->ip)
         ->distinct()
         // ->get(['goodId', 'goodName', 'goodImage', 'goodDiscount', 'updated_at'])
-        ->paginate(5, ['goodId', 'goodName', 'ip']);
+        ->paginate(-5, ['goodId', 'goodName', 'ip', 'created_at']);
 
         $seller = Seller::find($good->seller_id);
 
