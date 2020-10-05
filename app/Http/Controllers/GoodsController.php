@@ -229,7 +229,7 @@ class GoodsController extends Controller
             // 'user' => $user,
             'good' => $good,
             'seller' => $seller,
-            'reviews' => $reviews,
+            // 'reviews' => $reviews,
             'location' => $location,
             'device' => $device,
             'browser' => $browser,
@@ -241,7 +241,6 @@ class GoodsController extends Controller
             'robot' => $robot,
             'relatedGoods' => $relatedGoods,
             'recentViewedGoods' => $recentViewedGoods,
-            // 'reviews' => $reviews
         ];
 
         return response()->json($good_data, 201);

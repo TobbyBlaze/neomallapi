@@ -14,7 +14,7 @@ use DB;
 
 class ReviewsController extends Controller
 {
-    public function index($id)
+    public function index($id, Request $request)
     {
         $user = $request->user();
         $good = Good::find($id);
