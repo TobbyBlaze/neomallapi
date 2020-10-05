@@ -151,8 +151,8 @@ class GoodsController extends Controller
         $recentViewedGoods = viewGoods::orderBy('view_goods.updated_at', 'desc')
         ->where('view_goods.ip', $location->ip)
         ->distinct()
-        ->get(['goodId', 'goodName', 'updated_at'])
-        ->paginate(5);
+        // ->get(['goodId', 'goodName', 'updated_at'])
+        ->paginate(5, ['goodId', 'goodName', 'updated_at']);
 
         $seller = Seller::find($good->seller_id);
 
