@@ -16,7 +16,7 @@ class ReviewsController extends Controller
 {
     public function index($id)
     {
-        $user = User::find(auth::user()->id);
+        $user = $request->user();
         $good = Good::find($id);
         
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
@@ -35,7 +35,7 @@ class ReviewsController extends Controller
     {
 
         $good = Good::find($id);
-        $user = Auth::user();
+        $user = $request->user();
 
         $review = new Review;
         $review->rating = $request->input('rating');
@@ -53,7 +53,7 @@ class ReviewsController extends Controller
     {
         $review = Review::find($id);
 
-        $user = Auth::user();
+        $user = $request->user();
 
         $reviews = Review::all();
 

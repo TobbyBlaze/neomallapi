@@ -148,11 +148,12 @@ class GoodsController extends Controller
         ->where('goods.category', $good->category)
         ->paginate(5);
 
-        $recentViewedGoods = viewGoods::latest()
-        ->where('view_goods.ip', $location->ip)
+        $recentViewedGoods = viewGoods::where('view_goods.ip', $location->ip)
         ->distinct()
+        ->take(-5)
+        ->get('goodId', 'goodName', 'ip');
         // ->get(['goodId', 'goodName', 'goodImage', 'goodDiscount', 'updated_at'])
-        ->paginate(5, ['goodId', 'goodName', 'ip', 'created_at']);
+        // ->paginate(5, ['goodId', 'goodName', 'ip', 'created_at']);
 
         $seller = Seller::find($good->seller_id);
 
@@ -162,8 +163,9 @@ class GoodsController extends Controller
 
         // $goods = Good::all();
 
-        $reviews = Review::orderBy('reviews.updated_at', 'desc')
-        ->paginate(20);
+        // $reviews = Review::orderBy('reviews.updated_at', 'desc')
+        // ->where('reviews.good_id', $good->id)
+        // ->paginate(20);
 
         Good::where('id', '=', $id)
         ->update([
@@ -188,6 +190,10 @@ class GoodsController extends Controller
         $ifRobot = $agent->isRobot();
         $robot = $agent->robot();
 
+        // $viewGood = viewGoods::where('view_goods.goodId', $good->id)->first();
+        // if($viewGood != null){
+
+        // }
         $viewGood = new viewGoods;
         if($user){
             $viewGood->userId = $user->id;
@@ -234,7 +240,8 @@ class GoodsController extends Controller
             'ifRobot' => $ifRobot,
             'robot' => $robot,
             'relatedGoods' => $relatedGoods,
-            'recentViewedGoods' => $recentViewedGoods
+            'recentViewedGoods' => $recentViewedGoods,
+            // 'reviews' => $reviews
         ];
 
         return response()->json($good_data, 201);
