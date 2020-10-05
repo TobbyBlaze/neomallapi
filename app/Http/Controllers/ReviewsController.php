@@ -16,7 +16,7 @@ class ReviewsController extends Controller
 {
     public function index($id)
     {
-        // $user = User::find(auth::user()->id);
+        $user = User::find(auth::user()->id);
         $good = Good::find($id);
         
         $reviews = Review::orderBy('reviews.updated_at', 'desc')
@@ -24,7 +24,7 @@ class ReviewsController extends Controller
         ->paginate(20);
 
         $data = [
-            // 'user' => $user,
+            'user' => $user,
             'reviews'=>$reviews,
         ];
 
@@ -55,16 +55,12 @@ class ReviewsController extends Controller
 
         $user = Auth::user();
 
-        $users = User::where('users.status', '!=', auth()->user()->status)->orWhere('users.department', '=', auth()->user()->department)->orWhere('users.school', '=', auth()->user()->school)->orWhere('users.college', '=', auth()->user()->college)->orderBy('users.created_at', 'desc')->paginate(10);
-
-        
         $reviews = Review::all();
 
         $review_data = [
-            'review' => '$review',
-            'reviews' => '$reviews',
-            'user' => '$user',
-            'users' => '$users',
+            'review' => $review,
+            'reviews' => $reviews,
+            'user' => $user,
         ];
 
         return response()->json($review_data);
