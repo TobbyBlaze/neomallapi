@@ -25,6 +25,7 @@ class CreateCartsTable extends Migration
             $table->bigInteger('price');
             $table->bigInteger('views')->nullable();
             $table->bigInteger('quantity')->nullable();
+            $table->bigInteger('color')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

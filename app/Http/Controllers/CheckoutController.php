@@ -38,6 +38,7 @@ class CheckoutController extends Controller
             // $goodPrice = 0;
             $goodName = [];
             $goodQuantity = [];
+            $goodColor = [];
             $goodPrice = [];
             $goodSubTotPrice = 0;
             $goodTotPrice = 0;
@@ -45,6 +46,7 @@ class CheckoutController extends Controller
             foreach ($carts as $cart){
                 $goodName[] = $cart->name;
                 $goodQuantity[] = $cart->quantity;
+                $goodColor[] = $cart->color;
                 $goodPrice[] = $cart->price;
                 $goodSubTotPrice = $goodSubTotPrice + ($cart->price * $cart->quantity);
                 $goodTotPrice = $goodTotPrice + ($cart->price * $cart->quantity);
@@ -95,6 +97,7 @@ class CheckoutController extends Controller
             $order->email = $user->email;
             $order->goodsName = json_encode($goodName);
             $order->goodsQuantity = json_encode($goodQuantity);
+            $order->goodsColor = json_encode($goodColor);
             $order->goodsPrice = json_encode($goodPrice);
             $order->subtotal = $goodSubTotPrice;
             $order->total = $goodTotPrice;

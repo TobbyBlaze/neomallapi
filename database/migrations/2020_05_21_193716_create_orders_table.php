@@ -32,12 +32,13 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->string('goodsName')->nullable();
             $table->string('goodsQuantity')->nullable();
+            $table->string('goodsColor')->nullable();
             $table->string('goodsPrice')->nullable();
             $table->bigInteger('subtotal')->nullable();
             $table->bigInteger('total')->nullable();
 
             // Confirmed order or not
-            // $table->string('confirmed')->nullable();
+            $table->string('confirmed')->nullable();
 
             $table->timestamps();
 

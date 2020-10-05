@@ -46,6 +46,7 @@ class Cart extends Model
         'price',
         'category',
         'quantity',
+        'color'
     ];
 
     public function user(){
