@@ -49,7 +49,7 @@ class ReviewsController extends Controller
         return response()->json($review, 201);
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $review = Review::find($id);
 
