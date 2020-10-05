@@ -151,6 +151,7 @@ class GoodsController extends Controller
         $recentViewedGoods = viewGoods::orderBy('view_goods.updated_at', 'desc')
         ->where('view_goods.ip', $location->ip)
         ->distinct()
+        ->get(['goodId', 'goodPrice', 'goodName'])
         ->paginate(5);
 
         $seller = Seller::find($good->seller_id);
@@ -197,6 +198,7 @@ class GoodsController extends Controller
         $viewGood->goodId = $good->id;
         $viewGood->goodName = $good->name;
         // $viewGood->goodPrice = $good->price;
+        // $viewGood->goodImage = $good->image;
         $viewGood->goodViews = $good->views;
         $viewGood->goodCategory = $good->category;
         $viewGood->cityName = $location->cityName;
