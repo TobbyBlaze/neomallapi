@@ -149,7 +149,7 @@ class GoodsController extends Controller
         ->paginate(5);
 
         $recentViewedGoods = viewGoods::latest()
-        -where('view_goods.ip', $location->ip)
+        ->where('view_goods.ip', $location->ip)
         ->distinct()
         // ->get(['goodId', 'goodName', 'goodImage', 'goodDiscount', 'updated_at'])
         ->paginate(5, ['goodId', 'goodName', 'ip']);
