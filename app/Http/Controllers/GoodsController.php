@@ -104,7 +104,7 @@ class GoodsController extends Controller
             $good->originalPrice = $request->input('originalPrice');
             if($request->input('discount')){
                 $good->discount = $request->input('discount');
-                $good->price = $good->discount * 0.01 * $good->originalPrice;
+                $good->price = $good->originalPrice - ($good->discount * 0.01 * $good->originalPrice);
             }else{
                 $good->price = $good->originalPrice;
             }
@@ -151,7 +151,7 @@ class GoodsController extends Controller
         $recentViewedGoods = viewGoods::orderBy('view_goods.updated_at', 'desc')
         ->where('view_goods.ip', $location->ip)
         ->distinct()
-        ->get(['goodId', 'goodName'])
+        ->get(['goodId', 'goodName', 'updated_at'])
         ->paginate(5);
 
         $seller = Seller::find($good->seller_id);
@@ -201,6 +201,7 @@ class GoodsController extends Controller
         // $viewGood->goodImage = $good->image;
         $viewGood->goodViews = $good->views;
         $viewGood->goodCategory = $good->category;
+        // $viewGood->goodDiscount = $good->discount;
         $viewGood->cityName = $location->cityName;
         $viewGood->countryCode = $location->countryCode;
         $viewGood->countryName = $location->countryName;
