@@ -24,7 +24,7 @@ class ReviewsController extends Controller
         ->paginate(20);
 
         $data = [
-            // 'user' => $user,
+            'good' => $good,
             'reviews'=>$reviews,
         ];
 
