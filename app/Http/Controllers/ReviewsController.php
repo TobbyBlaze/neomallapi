@@ -31,10 +31,10 @@ class ReviewsController extends Controller
         return response()->json($data,200);
     }
 
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
 
-        $good = Good::find($id);
+        // $good = Good::find($id);
         $user = $request->user();
 
         $review = new Review;
@@ -42,7 +42,8 @@ class ReviewsController extends Controller
         $review->body = $request->input('body');
         $review->user_id = $user->id;
         $review->user_name = $user->name;
-        $review->good_id = $good->id;
+        $review->good_id = $request->input('good_id');
+        // $review->good_id = $good->id;
         
         $review->save();
 

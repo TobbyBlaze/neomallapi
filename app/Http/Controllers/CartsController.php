@@ -44,7 +44,7 @@ class CartsController extends Controller
         $cart->price = $request->input('price');
         $cart->category = $request->input('category');
         $cart->quantity = $request->input('qty');
-        $cart->color = $request->input('color');
+        // $cart->color = $request->input('color');
         $cart->user_id = auth()->user()->id;
         $cart->good_id = $request->input('good_id');
         

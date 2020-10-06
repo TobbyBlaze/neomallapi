@@ -56,7 +56,7 @@ Route::group([ 'prefix' => 'auth'], function (){
         //Reviews
         Route::resource('review', 'ReviewsController');
         Route::get('review/{id}', 'ReviewsController@index');
-        Route::any('storereview/{id}', 'ReviewsController@store');
+        Route::any('storereview', 'ReviewsController@store');
         Route::any('updatereview/{id}', 'ReviewsController@update');
         Route::any('deletereview/{id}', 'ReviewsController@destroy');
 
