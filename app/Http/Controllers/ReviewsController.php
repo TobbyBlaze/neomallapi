@@ -35,7 +35,8 @@ class ReviewsController extends Controller
     {
 
         // $good = Good::find($id);
-        $user = $request->user();
+        // $user = $request->user();
+        $user = User::find(Auth::user()->id);
 
         $review = new Review;
         $review->rating = $request->input('rating');
@@ -47,7 +48,7 @@ class ReviewsController extends Controller
         
         $review->save();
 
-        return response()->json($review, 200);
+        return response()->json($review, 201);
     }
 
     public function show($id, Request $request)
