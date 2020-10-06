@@ -47,7 +47,7 @@ class ReviewsController extends Controller
         
         $review->save();
 
-        return response()->json($review, 201);
+        return response()->json($review, 200);
     }
 
     public function show($id, Request $request)
