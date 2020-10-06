@@ -189,7 +189,7 @@ Route::get('cat/{id}', 'GoodsController@cat');
 Route::get('prdetails/{id}', 'GoodsController@show');
 
 //Reviews
-Route::resource('review', 'ReviewsController');
+// Route::resource('review', 'ReviewsController');
 Route::get('review/{id}', 'ReviewsController@index');
 
 //Stores
