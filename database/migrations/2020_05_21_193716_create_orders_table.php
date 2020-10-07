@@ -34,8 +34,8 @@ class CreateOrdersTable extends Migration
             $table->string('goodsQuantity')->nullable();
             $table->string('goodsColor')->nullable();
             $table->string('goodsPrice')->nullable();
-            $table->bigInteger('subtotal')->nullable();
-            $table->bigInteger('total')->nullable();
+            $table->decimal('subtotal', 12, 2)->nullable();
+            $table->decimal('total', 12, 2)->nullable();
 
             // Confirmed order or not
             $table->string('confirmed')->nullable();

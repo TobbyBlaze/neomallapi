@@ -31,11 +31,16 @@ class Order extends Model
         'country', 
         'address1', 
         'address2', 
-        'city', 
-        'state', 
+        'city',
         'zip', 
         'phone', 
-        'email'
+        'email',
+        'goodsName',
+        'goodsQuantity',
+        'goodsColor',
+        'goodsPrice',
+        'subtotal',
+        'total'
     ];
 
     public function user(){

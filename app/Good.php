@@ -17,11 +17,17 @@ class Good extends Model
 
     protected $fillable = [
         // 'id',
-        'user_id',
+        'seller_id',
+        'seller_name',
         'name',
         'description',
         'image',
+        'originalPrice',
         'price',
+        'discount',
+        'sizes',
+        'countryName',
+        'cityName',
         'category',
     ];
 

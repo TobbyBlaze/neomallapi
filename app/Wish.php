@@ -39,12 +39,15 @@ class Wish extends Model
     protected $fillable = [
         // 'id',
         'user_id',
+        'good_id',
         'name',
         'description',
         'image',
         'price',
         'category',
         'quantity',
+        'color',
+        'color_image'
     ];
 
     public function user(){

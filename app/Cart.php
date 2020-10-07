@@ -40,13 +40,15 @@ class Cart extends Model
     protected $fillable = [
         // 'id',
         'user_id',
+        'good_id',
         'name',
         'description',
         'image',
         'price',
         'category',
         'quantity',
-        'color'
+        'color',
+        'color_image'
     ];
 
     public function user(){

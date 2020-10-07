@@ -16,12 +16,15 @@ class Ads extends Model
 
     protected $fillable = [
         // 'id',
-        'user_id',
+        'seller_id',
+        'seller_name',
         'name',
         'description',
         'image',
         'price',
         'category',
+        'countryName',
+        'cityName'
     ];
 
     public function user(){

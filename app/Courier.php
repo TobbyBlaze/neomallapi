@@ -27,7 +27,7 @@ class Courier extends Authenticatable
     protected $guard = 'courier';
 
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'phone_number_1', 'phone_number_2', 'active', 'activation_token'
+        'name', 'last_name', 'email', 'password', 'phone1', 'phone2', 'address1', 'address2', 'active', 'activation_token'
     ];
 
     /**

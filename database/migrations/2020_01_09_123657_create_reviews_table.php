@@ -18,8 +18,9 @@ class CreateReviewsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('user_name')->nullable();
             $table->bigInteger('good_id')->unsigned();
-            $table->bigInteger('rating');
-            $table->string('body')->nullable();
+            $table->bigInteger('rating')->nullable();
+            $table->longText('body');
+            $table->string('summary')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
